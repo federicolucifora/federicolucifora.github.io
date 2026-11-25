@@ -245,7 +245,9 @@ dal 17 dicembre 2025 al 6 aprile 2026. Nella sezione "Il DNA di Roma" un modello
 ## Fase 4 – Pubblicazione
 
 - [ ] Tu crei su GitHub il repository **federicolucifora.github.io** (ti guido passo passo).
-- [ ] Pubblicazione del nuovo sito su https://federicolucifora.github.io/
+- [x] Pubblicazione del nuovo sito su https://federicolucifora.github.io/ (2026-11-26; deploy.yml usa Node 24,
+      con la versione di default la build falliva). Reindirizzamenti pronti in Lavoro\Portfolio e
+      Lavoro\Portfolio-Copy (= repo Visual-Designer), da caricare con GitHub Desktop.
 - [ ] (2026-11-25) Anche il sito **visual-designer** diventa un insieme di reindirizzamenti verso il nuovo sito
       (decisione cambiata dall'utente). Git non è installato sul PC: serve installarlo (Git for Windows).
 - [ ] Il repository **Portfolio** diventa un insieme di reindirizzamenti: ogni vecchio indirizzo

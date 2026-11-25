@@ -62,11 +62,13 @@ const key = `intro:${text.toLowerCase()}`;
     // Where the content is now (under the title) and where it will be at the end (title gone).
     content.style.transition = 'none';
     content.style.transform = 'none';
-    // At the end the content gets some space on top (to clear the menu bar): the cards must stop
-    // right there, so that space is counted in the distance they travel.
-    const before = content.getBoundingClientRect().top;
+    // At the end the content gets some space on top (to clear the menu bar), and the first element may keep
+    // its own top margin too: so the travel is measured on the first element itself, where it is now and
+    // where it will be at the end, and the content stops exactly there (no little jump when it lands).
+    const first = content.firstElementChild ?? content;
+    const before = first.getBoundingClientRect().top;
     html.classList.add('introDone');
-    const after = content.getBoundingClientRect().top + parseFloat(getComputedStyle(content).paddingTop);
+    const after = first.getBoundingClientRect().top;
     html.classList.remove('introDone');
     const distance = before - after;
 
