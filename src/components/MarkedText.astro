@@ -1,0 +1,69 @@
+---
+// Paragraphs of text with the markers used in the .yaml files (see content.config.ts):
+//   {{ ... }}  written by Claude, to be checked   -> highlighted in the preview, normal text in the published site
+//   [[ ... ]]  still to be completed               -> highlighted in the preview, hidden in the published site
+// Paragraphs are separated by an empty line. Used by ProjectSections and by the chapters of the project pages.
+interface Props {
+  text?: string;
+  class?: string; // class of each paragraph
+}
+const { text = '', class: paragraphClass } = Astro.props;
+const preview = import.meta.env.DEV;
+
+type Piece = { kind: 'plain' | 'claude' | 'todo'; text: string };
+
+function pieces(paragraph: string): Piece[] {
+  return paragraph
+    .split(/(\{\{[\s\S]*?\}\}|\[\[[\s\S]*?\]\])/)
+    .filter((part) => part.length > 0)
+    .map((part): Piece => {
+      if (part.startsWith('{{')) return { kind: 'claude', text: part.slice(2, -2).trim() };
+      if (part.startsWith('[[')) return { kind: 'todo', text: part.slice(2, -2).trim() };
+      return { kind: 'plain', text: part };
+    })
+    .filter((piece) => preview || piece.kind !== 'todo');
+}
+
+const paragraphs = text
+  .split(/\n\s*\n/)
+  .map((paragraph) => pieces(paragraph.trim()))
+  .filter((list) => list.some((piece) => piece.text.trim().length > 0));
+---
+
+{
+  paragraphs.map((list) => (
+    <p class={paragraphClass}>
+      {list.map((piece) =>
+        piece.kind === 'plain' ? (
+          piece.text
+        ) : piece.kind === 'claude' ? (
+          preview ? (
+            <mark class="writtenByClaude" title="Scritto da Claude: da controllare">{piece.text}</mark>
+          ) : (
+            piece.text
+          )
+        ) : (
+          <mark class="toComplete" title="Da completare">{piece.text}</mark>
+        ),
+      )}
+    </p>
+  ))
+}
+
+<style is:global>
+  /* Preview-only highlights (colours from the palette: pink family 4 and teal family 3). */
+  .writtenByClaude {
+    background-color: #FFD7DC;
+    color: #912046;
+    border-radius: 0.3em;
+    padding: 0 0.15em;
+  }
+
+  .toComplete {
+    background-color: #C3EAE4;
+    color: #134B4C;
+    border-radius: 0.3em;
+    padding: 0 0.15em;
+    font-style: italic;
+  }
+</style>

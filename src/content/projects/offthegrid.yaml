@@ -1,0 +1,64 @@
+title: Off The Grid
+description: A case study and website about alternative social media platforms. Silver prize at the European Design Awards and Honorable Mention on Awwwards.
+ogImage: materials/offthegrid/copertina.jpg
+order: 2
+listed: true
+featured: true
+areas:
+- visual
+- interactive
+year: '2022'
+tools:
+- GitHub
+- Visual Studio Code
+- Illustrator
+- After Effects
+tags:
+- Web Development
+- User Experience
+- Digital Interaction
+cover:
+  src: offthegrid/copertina.jpg
+  height: 40vw
+link: https://offthegrid-density.github.io/Synthesis-C3/index.html
+text: Off The Grid is a case study of numerous alternative social media platforms. Different websites were analyzed and categorized, and the collected data was presented through a website. The project won the silver prize at the European Design Awards and the website received an "honorable mention" from the platform Awwwards.
+collaborators:
+- Letizia Agosta
+- Aurora Antonini
+- Martina Bombardieri
+- Elena Busletta
+- Camilla De Amicis
+card:
+  src: offthegrid/copertina.jpg
+blocks:
+- type: image
+  src: offthegrid/offthegrid1.jpg
+  width: 50%
+  height: 30vw
+- type: text
+  text: 'The panorama of social media is larger than one might think: it includes a lot of alternatives to the most famous and popular ones. These platforms came about as a result of different needs to break away from the mainstream ones. Whether we talk about censorship, privacy policies, free speech or real connections, you can find a huge amount of social media where all these themes are discussed.'
+- type: image
+  src: offthegrid/offthegrid2.jpg
+  width: 40%
+  height: 28vw
+- type: image
+  src: offthegrid/offthegrid3.jpg
+  width: 45%
+  height: 24vw
+- type: image
+  src: offthegrid/offthegrid4.jpg
+  width: 45%
+  height: 24vw
+- type: text
+  text: 'With Off The Grid, we wanted to create a website where social media platforms could talk for themselves. The aim of this project is to make people aware of the auto definition of alternative social media through expressions and adjectives used to declare their values and cores: an auto narration through their own words. Alternative social media are analyzed and categorized by themes in the shape of an archive. The recurring and repeated presence of these themes within the payoffs of the analyzed sites will present an index of the importance of these social issues discussed in the digital world today.'
+- type: image
+  src: offthegrid/offthegrid6.jpg
+  width: 40%
+  height: 35vw
+sections:
+  overview: |-
+    Off The Grid is a case study and website about alternative social media: the many platforms born from the need to move away from the mainstream ones, around themes such as censorship, privacy, free speech and genuine connection. It was developed at Politecnico di Milano.
+  role: |-
+    Working in a team, I focused on web development, user experience and digital interaction. We analyzed and categorized numerous platforms and built a website where they could talk for themselves: an archive organized by themes, based on the words each platform uses to describe its values, so that the recurring themes reveal which social issues matter most online today.
+  result: |-
+    The project won the Silver award at the European Design Awards 2023, and the website received an Honorable Mention from Awwwards.

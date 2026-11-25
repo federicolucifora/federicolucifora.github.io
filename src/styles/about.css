@@ -1,0 +1,281 @@
+@import './common.css';
+
+/* Footer: here a little more space above it than below (asked by the user), see Footer.astro.
+   Space above: desktop 5vw (3 below), tablet 6.5vw (4 below), phone 11vw (8 below). */
+body {
+    --footer-top: 2.5vw;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        --footer-top: 6vw;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+    body {
+        --footer-top: 3.7vw;
+    }
+}
+
+/* Normal text -----------------------------------------------------------------------------------------------------------------------------*/
+
+.normalText {
+    font-weight: 500;
+    font-size: 2vw;
+}
+
+/* Photo and presentation side by side, centred on each other. */
+.aboutIntro {
+    display: flex;
+    align-items: center;
+    gap: 5vw;
+    margin: 2.5vw 9vw 5vw 9vw; /* same side margins as the section titles and the dates below */
+}
+
+#presentation {
+    flex: 1;
+}
+
+#presentation p {
+    margin: 0;
+}
+
+#presentation p + p {
+    margin-top: 1.5vw;
+}
+
+/* Your original presentation (preview only): separated by a dashed line and slightly faded. */
+.originalText {
+    margin-top: 2vw;
+    padding-top: 1.2vw;
+    border-top: 1.5px dashed #9B5313;
+    opacity: 0.75;
+    font-size: 0.75em;
+}
+
+.originalText p {
+    margin-top: 0.5vw !important;
+}
+
+/* Title Text */
+
+.titleText {
+    font-size: 4vw;
+    font-weight: 700;
+    margin: 0 9vw 3vw 9vw;
+    padding-bottom: 1vw;
+    display: block;
+}
+
+/* Experience */
+
+/* Every item is as tall as one with a two-line description (the longest allowed):
+   so the date pills are all at the same distance, and two-line texts never touch the next item. */
+.elementContainer {
+    display: flex;
+    align-items: flex-start;
+    min-height: 8vw;
+    margin-bottom: 1vw;
+}
+
+.elementDate {
+    display: inline-block;
+    margin: 0 4vw 0 9vw;
+    padding: 2vw 0;
+    font-weight: 500;
+    font-size: 1.5vw;
+    border-radius: 2.3vw;
+    text-align: center;
+    width: 12.5vw; /* room for periods like "2024–2026", with margin on the sides */
+    flex: none;
+}
+
+.elementText {
+    display: inline-block;
+    flex: 1;
+    margin-right: 9vw;
+    font-size: 2vw;
+    font-weight: 500;
+    padding-top: 0.7vw;
+}
+
+.elementSubtitle {
+    font-size: 1.4vw;
+    font-weight: 400;
+}
+
+.elementSubtitle a {
+    text-decoration: underline;
+}
+
+.elementSubtitle a:hover {
+    font-weight: 500;
+}
+
+#experience {
+    border-bottom: solid 1px #FED9B7;
+}
+
+#awards {
+    border-bottom: solid 1px #FFC5B3;
+    margin-top: 4vw;
+}
+
+#education {
+    border-bottom: solid 1px #C3EAE4;
+    margin-top: 4vw;
+}
+
+/* Moving image ----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+#pImageDiv {
+    position: relative;
+    flex: none;
+    width: 25vw;
+    height: 25vw;
+    -webkit-mask-image: url(../assets/materials/google_shape.svg);
+    mask-image: url(../assets/materials/google_shape.svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+}
+
+#pImageDiv img {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    transition: opacity .5s;
+}
+
+/* On big landscape screens the shape turns by itself (the animation is inside the SVG file),
+   while the photo stays still. Not for people who asked their device to reduce motion. */
+@media only screen and (min-width: 1201px) and (orientation: landscape) and (prefers-reduced-motion: no-preference) {
+    #pImageDiv {
+        -webkit-mask-image: url(../assets/materials/google_shape_spin_slow.svg);
+        mask-image: url(../assets/materials/google_shape_spin_slow.svg);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    /* Normal text -----------------------------------------------------------------------------------------------------------------------------*/
+
+    .normalText {
+        font-size: 4.5vw;
+    }
+
+    .aboutIntro {
+        flex-direction: column;
+        gap: 8vw;
+        margin: 0 5vw 9vw 5vw;
+    }
+
+    #presentation {
+        align-self: stretch;
+    }
+
+    #presentation p + p {
+        margin-top: 3vw;
+    }
+
+    /* Title Text */
+
+    .titleText {
+        font-size: 8vw;
+        margin: 0 9vw 3vw 5vw;
+    }
+
+    /* Experience */
+
+    .elementContainer {
+        min-height: 0;
+        margin-bottom: 0; /* phones keep their own spaces (under the date and the text) */
+    }
+
+    .elementDate {
+        margin: 0 4vw 2vw 5vw;
+        font-size: 4vw;
+        border-radius: 3.5vw;
+        width: 29vw;
+        height: 5vw;
+    }
+
+    .elementText {
+        font-size: 4.5vw;
+        padding-top: 0.3vw;
+        margin-right: 5vw;
+        margin-bottom: 5vw;
+    }
+
+    .elementSubtitle {
+        font-size: 3.5vw;
+    }
+
+    #education {
+        margin-top: 5vw;
+    }
+
+    /* Moving image ----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+    #pImageDiv {
+        width: 60vw;
+        height: 60vw;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+
+    /* Normal text -----------------------------------------------------------------------------------------------------------------------------*/
+
+    .normalText {
+        font-size: 2.3vw;
+    }
+
+    .aboutIntro {
+        margin: 2.5vw 9vw 5vw 5vw; /* same side margins as the sections below */
+    }
+
+    /* Title Text */
+
+    .titleText {
+        font-size: 5vw;
+        margin: 0 9vw 3vw 5vw;
+    }
+
+    /* Experience */
+
+    .elementDate {
+        margin: 0 4vw 0 5vw;
+        font-size: 1.8vw;
+        border-radius: 2.4vw;
+        width: 15.5vw;
+    }
+
+    .elementText {
+        font-size: 2.3vw;
+        padding-top: 0.3vw;
+    }
+
+    .elementContainer {
+        min-height: 8.7vw; /* height of a two-line item on tablets */
+    }
+
+    /* Small enough that every description stays within two lines (the longest is the Ultra one). */
+    .elementSubtitle {
+        font-size: 1.6vw;
+    }
+
+    #awards,
+    #education {
+        margin-top: 4vw;
+    }
+
+    /* Moving image ----------------------------------------------------------------------------------------------------------------------------------------------*/
+
+    #pImageDiv {
+        width: 29vw;
+        height: 29vw;
+    }
+}

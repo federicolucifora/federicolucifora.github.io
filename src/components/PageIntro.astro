@@ -1,0 +1,88 @@
+---
+// Opening animation of the inner pages (not the home):
+// the big title is typed one letter at a time, then the page content (the element with
+// the attribute data-intro-content) rises to cover it while the title fades away.
+// It plays only the first time the page is opened during a visit, and never for people
+// who asked their device to reduce motion: in those cases the page opens directly on the content.
+interface Props {
+  /** The word to type, e.g. "Work". */
+  text: string;
+  /** Colour class of the title, e.g. "color2_1" (see styles/common.css). */
+  colorClass: string;
+}
+const { text, colorClass } = Astro.props;
+const key = `intro:${text.toLowerCase()}`;
+---
+
+<h1 id="pageTitle" class={colorClass}>
+  {[...text].map((letter) => <span class="introLetter">{letter}</span>)}
+</h1>
+
+<!-- Decides right away (before the page is drawn) whether the animation plays, so nothing flickers. -->
+<script is:inline define:vars={{ key }}>
+  (() => {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem(key) === '1';
+    } catch {}
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const play = !seen && !reduce;
+    document.documentElement.classList.add(play ? 'introPlay' : 'introDone');
+    // When the animation plays, don't let the browser jump back to where the page was scrolled before a reload.
+    if (play && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+    document.documentElement.dataset.introKey = key;
+  })();
+</script>
+
+<script>
+  const html = document.documentElement;
+  const title = document.getElementById('pageTitle');
+  const content = document.querySelector<HTMLElement>('[data-intro-content]');
+  const letters = Array.from(document.querySelectorAll<HTMLElement>('.introLetter'));
+
+  const LETTER_MS = 110; // time between two letters
+  const PAUSE_MS = 150; // pause after the last letter
+  const RISE_MS = 800; // time the content takes to rise
+
+  function finish() {
+    html.classList.remove('introPlay');
+    html.classList.add('introDone');
+    if (content) {
+      content.style.transition = '';
+      content.style.transform = '';
+      content.style.opacity = '';
+    }
+    try {
+      sessionStorage.setItem(html.dataset.introKey ?? 'intro', '1');
+    } catch {}
+  }
+
+  function rise() {
+    if (!title || !content) return finish();
+    // Where the content is now (under the title) and where it will be at the end (title gone).
+    content.style.transition = 'none';
+    content.style.transform = 'none';
+    // At the end the content gets some space on top (to clear the menu bar): the cards must stop
+    // right there, so that space is counted in the distance they travel.
+    const before = content.getBoundingClientRect().top;
+    html.classList.add('introDone');
+    const after = content.getBoundingClientRect().top + parseFloat(getComputedStyle(content).paddingTop);
+    html.classList.remove('introDone');
+    const distance = before - after;
+
+    // Start a bit lower, then rise to the final place while the title fades.
+    content.style.transform = 'translateY(30vh)';
+    content.getBoundingClientRect();
+    content.style.transition = `transform ${RISE_MS}ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity ${RISE_MS * 0.6}ms ease-out`;
+    content.style.opacity = '1';
+    content.style.transform = `translateY(${-distance}px)`;
+    title.classList.add('introFading');
+    setTimeout(finish, RISE_MS + 50);
+  }
+
+  if (html.classList.contains('introPlay')) {
+    window.scrollTo(0, 0); // the animation always starts from the top of the page
+    letters.forEach((letter, i) => setTimeout(() => letter.classList.add('introShown'), 100 + i * LETTER_MS));
+    setTimeout(rise, 100 + letters.length * LETTER_MS + PAUSE_MS);
+  }
+</script>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proposte pagina Contacts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Style proposals for the Contacts page. Each proposal is drawn inside a frame that behaves like a screen
+     ("cqw" = % of the frame width, like "vw" on the real page). Only the original palette, solid colours. */
+  :root {
+    --cream: #FFFCEE; --grey: #4e4e4e;
+    --o1: #FED9B7; --o3: #9B5313;
+    --r1: #FFC5B3; --r3: #931F1F;
+    --t1: #C3EAE4; --t3: #134B4C;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f3efe0; color: var(--grey); font-family: 'Rubik', sans-serif; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 30px 80px; }
+  h1 { margin: 32px 0 6px; font-size: 28px; }
+  .intro { margin: 0 0 10px; max-width: 85ch; line-height: 1.5; }
+  .toggle { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; }
+  .toggle button { font: inherit; border: none; border-radius: 999px; padding: 6px 14px; cursor: pointer; background: var(--o1); color: var(--o3); }
+  .toggle button[aria-pressed="true"] { background: var(--o3); color: var(--cream); }
+  section { padding: 30px 0 10px; }
+  section h2 { margin: 0 0 4px; font-size: 22px; color: var(--o3); }
+  section .note { margin: 0 0 14px; max-width: 90ch; line-height: 1.5; font-size: 15px; }
+
+  /* The "screen" */
+  .frame { container-type: inline-size; width: 100%; margin: 0 auto; background: var(--cream); border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px #e4dcc2; }
+  body.phone .frame { width: 375px; }
+  .bar { display: flex; justify-content: space-between; align-items: center; padding: 1.6cqw 2cqw; font-size: max(11px, 1.1cqw); font-weight: 500; }
+  .bar span:last-child { display: flex; gap: .6cqw; }
+  .bar i { display: inline-block; padding: .4cqw 1cqw; border-radius: 999px; font-style: normal; font-size: max(9px, .9cqw); }
+  .screen { padding: 6cqw 9cqw 9cqw; }
+
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; }
+  .icon { display: block; flex: none; object-fit: contain; }
+  .invite { margin: 0; font-weight: 500; }
+
+  /* ---------- A · Centred, big pills ---------- */
+  .A .screen { display: flex; flex-direction: column; align-items: center; gap: 3cqw; text-align: center; }
+  .A .invite { font-size: 2.6cqw; max-width: 50cqw; }
+  .A .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 2cqw; }
+  .A .pill { display: flex; align-items: center; gap: 1.4cqw; padding: 1.4cqw 3cqw 1.4cqw 1.6cqw; border-radius: 999px; font-size: 2.2cqw; font-weight: 700; }
+  .A .pill .icon { width: 3.6cqw; height: 3.6cqw; }
+  .A .copy { margin-left: 1cqw; padding: .9cqw 2cqw; border: none; border-radius: 999px; background: var(--cream); color: var(--r3); font-size: 1.6cqw; font-weight: 700; }
+  @container (max-width: 600px) {
+    .A .screen { padding: 10cqw 5cqw 14cqw; gap: 6cqw; }
+    .A .invite { font-size: 5.5cqw; max-width: none; }
+    .A .row { flex-direction: column; align-items: stretch; gap: 3cqw; }
+    .A .pill { justify-content: center; font-size: 4.4cqw; padding: 3cqw 5cqw; gap: 3cqw; flex-wrap: wrap; border-radius: 6cqw; }
+    .A .pill .icon { width: 8cqw; height: 8cqw; }
+    .A .copy { font-size: 3.8cqw; padding: 2cqw 5cqw; margin: 0; }
+  }
+
+  /* ---------- B · Text on the left, buttons on the right ---------- */
+  .B .screen { display: flex; align-items: center; gap: 6cqw; }
+  .B .left { flex: 1; }
+  .B .invite { font-size: 3.6cqw; font-weight: 700; color: var(--t3); line-height: 1.15; }
+  .B .sub { margin: 1.6cqw 0 0; font-size: 1.6cqw; font-weight: 500; }
+  .B .buttons { flex: none; width: 40cqw; display: flex; flex-direction: column; gap: 1.4cqw; }
+  .B .btn { display: flex; align-items: center; gap: 1.6cqw; padding: 1.4cqw 1.6cqw; border-radius: 1.6cqw; }
+  .B .btn .icon { width: 4.4cqw; height: 4.4cqw; }
+  .B .txt { flex: 1; min-width: 0; text-align: left; }
+  .B .name { display: block; font-size: 1.9cqw; font-weight: 700; }
+  .B .value { display: block; font-size: 1.3cqw; font-weight: 500;  }
+  .B .action { flex: none; padding: .8cqw 1.6cqw; border: none; border-radius: 999px; background: var(--cream); font-size: 1.3cqw; font-weight: 700; }
+  @container (max-width: 600px) {
+    .B .screen { flex-direction: column; align-items: stretch; padding: 10cqw 5cqw 14cqw; gap: 7cqw; }
+    .B .invite { font-size: 8cqw; }
+    .B .sub { font-size: 4cqw; margin-top: 3cqw; }
+    .B .buttons { width: auto; gap: 3cqw; }
+    .B .btn { gap: 3.5cqw; padding: 3.5cqw; border-radius: 4cqw; }
+    .B .btn .icon { width: 10cqw; height: 10cqw; }
+    .B .name { font-size: 4.6cqw; }
+    .B .value { font-size: 3.4cqw; }
+    .B .action { font-size: 3.4cqw; padding: 2cqw 3.6cqw; }
+  }
+
+  /* ---------- C · Three cards ---------- */
+  .C .screen { display: flex; flex-direction: column; align-items: center; gap: 4cqw; }
+  .C .invite { font-size: 2.6cqw; text-align: center; max-width: 50cqw; }
+  .C .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2cqw; width: 100%; }
+  .C .card { display: flex; flex-direction: column; align-items: center; gap: 1.2cqw; padding: 3cqw 2cqw 2.4cqw; border-radius: 1.6cqw; text-align: center; }
+  .C .card .icon { width: 6cqw; height: 6cqw; margin-bottom: .6cqw; }
+  .C .name { font-size: 2.2cqw; font-weight: 700; }
+  .C .value { font-size: 1.3cqw; font-weight: 500;  }
+  .C .action { margin-top: .8cqw; padding: .8cqw 2.2cqw; border: none; border-radius: 999px; background: var(--cream); font-size: 1.4cqw; font-weight: 700; }
+  @container (max-width: 600px) {
+    .C .screen { padding: 10cqw 5cqw 14cqw; gap: 7cqw; }
+    .C .invite { font-size: 5.5cqw; max-width: none; }
+    .C .cards { grid-template-columns: 1fr; gap: 3cqw; }
+    .C .card { flex-direction: row; flex-wrap: wrap; text-align: left; padding: 4cqw; gap: 3cqw; border-radius: 4cqw; }
+    .C .card .icon { width: 10cqw; height: 10cqw; margin: 0; }
+    .C .card .txt { flex: 1; }
+    .C .name { display: block; font-size: 4.6cqw; }
+    .C .value { display: block; font-size: 3.4cqw; }
+    .C .action { margin: 0; font-size: 3.4cqw; padding: 2cqw 3.6cqw; }
+  }
+
+  /* ---------- D · Big rows, like the About timeline ---------- */
+  .D .invite { font-size: 3cqw; max-width: 60cqw; margin-bottom: 3cqw; }
+  .D .list { border-top: 1px solid var(--t1); }
+  .D .line { display: flex; align-items: center; gap: 2.4cqw; padding: 1.8cqw 0; border-bottom: 1px solid var(--t1); }
+  .D .badge { flex: none; display: flex; align-items: center; justify-content: center; width: 7cqw; height: 7cqw; border-radius: 1.6cqw; }
+  .D .badge .icon { width: 4.4cqw; height: 4.4cqw; }
+  .D .name { width: 16cqw; flex: none; font-size: 2.4cqw; font-weight: 700; }
+  .D .value { flex: 1; min-width: 0; font-size: 1.8cqw; font-weight: 500;  }
+  .D .action { flex: none; padding: 1cqw 2.4cqw; border: none; border-radius: 999px; font-size: 1.5cqw; font-weight: 700; }
+  @container (max-width: 600px) {
+    .D .screen { padding: 10cqw 5cqw 14cqw; }
+    .D .invite { font-size: 5.5cqw; max-width: none; margin-bottom: 6cqw; }
+    .D .line { flex-wrap: wrap; gap: 3cqw; padding: 4cqw 0; }
+    .D .badge { width: 13cqw; height: 13cqw; border-radius: 3.5cqw; }
+    .D .badge .icon { width: 8cqw; height: 8cqw; }
+    .D .name { width: auto; flex: 1; font-size: 5cqw; }
+    .D .value { flex-basis: 100%; order: 3; font-size: 3.8cqw; }
+    .D .action { font-size: 3.4cqw; padding: 2cqw 4cqw; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pagina Contacts: proposte di stile</h1>
+  <p class="intro">Quattro modi di impaginare la stessa pagina. Ogni riquadro si comporta come uno schermo:
+    con il pulsante qui sotto puoi vederle tutte anche nella versione telefono. Le pillole/pulsanti sono più grandi
+    rispetto alle icone. I pulsanti "Copy" e i link qui non fanno nulla: è solo l'aspetto.</p>
+  <div class="toggle">Vista:
+    <button type="button" data-view="desktop" aria-pressed="true">Computer</button>
+    <button type="button" data-view="phone" aria-pressed="false">Telefono</button>
+  </div>
+
+  <section>
+    <h2>A · Centrata, pillole grandi</h2>
+    <p class="note">Come ora, ma con le pillole più alte e il testo più grande, e l'icona della mail anche nella pillola dell'email.
+      Tutto centrato sotto la frase.</p>
+    <div class="frame A">
+      <div class="bar"><span>Federico Lucifora</span><span><i style="background:var(--o1)">about</i><i style="background:var(--r1)">work</i><i style="background:var(--t1)">contacts</i></span></div>
+      <div class="screen">
+        <p class="invite">Have a project in mind or want to work together? Drop me a line.</p>
+        <div class="row">
+          <div class="pill" style="background:var(--r1);color:var(--r3)"><img class="icon" src="../../src/assets/materials/mail.png" alt="" />federico.lucifora.business@gmail.com<button class="copy">Copy</button></div>
+        </div>
+        <div class="row">
+          <a class="pill" style="background:var(--t1);color:var(--t3)"><img class="icon" src="../../src/assets/materials/linkedin.png" alt="" />LinkedIn</a>
+          <a class="pill" style="background:var(--o1);color:var(--o3)"><img class="icon" src="../../src/assets/materials/instagram.png" alt="" />Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>B · Testo a sinistra, pulsanti a destra</h2>
+    <p class="note">La frase grande a sinistra, nel verde scuro della pagina Contacts. A destra tre pulsanti uno sotto l'altro,
+      tutti della stessa larghezza: icona, nome, indirizzo e azione. Sul telefono la frase va sopra e i pulsanti sotto.</p>
+    <div class="frame B">
+      <div class="bar"><span>Federico Lucifora</span><span><i style="background:var(--o1)">about</i><i style="background:var(--r1)">work</i><i style="background:var(--t1)">contacts</i></span></div>
+      <div class="screen">
+        <div class="left">
+          <p class="invite">Have a project in mind or want to work together? Drop me a line.</p>
+          <p class="sub">Based in Milan, Italy</p>
+        </div>
+        <div class="buttons">
+          <div class="btn" style="background:var(--r1);color:var(--r3)"><img class="icon" src="../../src/assets/materials/mail.png" alt="" /><span class="txt"><span class="name">Email</span><span class="value">federico.lucifora.business@<wbr />gmail.com</span></span><button class="action" style="color:var(--r3)">Copy</button></div>
+          <a class="btn" style="background:var(--t1);color:var(--t3)"><img class="icon" src="../../src/assets/materials/linkedin.png" alt="" /><span class="txt"><span class="name">LinkedIn</span><span class="value">federico-lucifora</span></span><span class="action" style="color:var(--t3)">Open</span></a>
+          <a class="btn" style="background:var(--o1);color:var(--o3)"><img class="icon" src="../../src/assets/materials/instagram.png" alt="" /><span class="txt"><span class="name">Instagram</span><span class="value">@federicolucifora98</span></span><span class="action" style="color:var(--o3)">Open</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>C · Tre card</h2>
+    <p class="note">La frase centrata e sotto tre card uguali affiancate, con icona grande, nome, indirizzo e azione.
+      Sul telefono le card diventano righe una sotto l'altra.</p>
+    <div class="frame C">
+      <div class="bar"><span>Federico Lucifora</span><span><i style="background:var(--o1)">about</i><i style="background:var(--r1)">work</i><i style="background:var(--t1)">contacts</i></span></div>
+      <div class="screen">
+        <p class="invite">Have a project in mind or want to work together? Drop me a line.</p>
+        <div class="cards">
+          <div class="card" style="background:var(--r1);color:var(--r3)"><img class="icon" src="../../src/assets/materials/mail.png" alt="" /><span class="txt"><span class="name">Email</span><br /><span class="value">federico.lucifora.business@<wbr />gmail.com</span></span><button class="action" style="color:var(--r3)">Copy</button></div>
+          <a class="card" style="background:var(--t1);color:var(--t3)"><img class="icon" src="../../src/assets/materials/linkedin.png" alt="" /><span class="txt"><span class="name">LinkedIn</span><br /><span class="value">federico-lucifora</span></span><span class="action" style="color:var(--t3)">Open</span></a>
+          <a class="card" style="background:var(--o1);color:var(--o3)"><img class="icon" src="../../src/assets/materials/instagram.png" alt="" /><span class="txt"><span class="name">Instagram</span><br /><span class="value">@federicolucifora98</span></span><span class="action" style="color:var(--o3)">Open</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>D · Righe grandi, come la timeline dell'About</h2>
+    <p class="note">La frase allineata a sinistra e sotto un elenco di righe separate da linee sottili, con lo stesso
+      ritmo delle sezioni dell'About: icona in un quadrato colorato, nome, indirizzo e pulsante a destra.</p>
+    <div class="frame D">
+      <div class="bar"><span>Federico Lucifora</span><span><i style="background:var(--o1)">about</i><i style="background:var(--r1)">work</i><i style="background:var(--t1)">contacts</i></span></div>
+      <div class="screen">
+        <p class="invite">Have a project in mind or want to work together? Drop me a line.</p>
+        <div class="list">
+          <div class="line"><span class="badge" style="background:var(--r1)"><img class="icon" src="../../src/assets/materials/mail.png" alt="" /></span><span class="name">Email</span><span class="value">federico.lucifora.business@<wbr />gmail.com</span><button class="action" style="background:var(--r1);color:var(--r3)">Copy</button></div>
+          <a class="line"><span class="badge" style="background:var(--t1)"><img class="icon" src="../../src/assets/materials/linkedin.png" alt="" /></span><span class="name">LinkedIn</span><span class="value">federico-lucifora</span><span class="action" style="background:var(--t1);color:var(--t3)">Open</span></a>
+          <a class="line"><span class="badge" style="background:var(--o1)"><img class="icon" src="../../src/assets/materials/instagram.png" alt="" /></span><span class="name">Instagram</span><span class="value">@federicolucifora98</span><span class="action" style="background:var(--o1);color:var(--o3)">Open</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  for (const b of document.querySelectorAll('[data-view]')) {
+    b.addEventListener('click', () => {
+      document.body.classList.toggle('phone', b.dataset.view === 'phone');
+      for (const o of document.querySelectorAll('[data-view]')) o.setAttribute('aria-pressed', String(o === b));
+    });
+  }
+</script>
+</body>
+</html>

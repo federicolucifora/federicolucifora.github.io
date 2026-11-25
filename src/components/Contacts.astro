@@ -1,0 +1,7 @@
+---
+import { getEntry } from 'astro:content';
+const site = (await getEntry('site', 'site'))!.data;
+---
+
+<a href={site.linkedin} id="linkedin" class="contactsObject bcolor3_1"></a>
+<a href={`mailto:${site.email}`} id="mail" class="contactsObject bcolor2_1"></a>

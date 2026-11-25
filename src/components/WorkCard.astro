@@ -1,0 +1,40 @@
+---
+// Card of the work page: picture on top, then the title and the coloured labels of its areas.
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { url } from '../lib';
+import { img } from '../images';
+import { areaById } from '../areas';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { title, card, areas } = project.data;
+const picture = await img(card.src);
+---
+
+<a href={url(`work/${project.id}.html`)} class="workCard" data-areas={areas.join(' ')}>
+  <div class="workCardImage">
+    <Image
+      src={picture}
+      alt=""
+      class="fillImage"
+      width={Math.min(1280, picture.width)}
+      widths={[480, 720, 960, 1280]}
+      sizes="(max-width: 600px) 92vw, (max-width: 992px) 47vw, 32vw"
+      quality={88}
+      style={card.position ? `object-position:${card.position}` : undefined}
+    />
+  </div>
+  <div class="workCardCaption">
+    <span class="workCardTitle">{title}</span>
+    <span class="areaTags">
+      {
+        areas.map((id) => (
+          <span class={`areaTag bcolor${areaById[id].family}_1 color${areaById[id].family}_3`}>{areaById[id].label}</span>
+        ))
+      }
+    </span>
+  </div>
+</a>

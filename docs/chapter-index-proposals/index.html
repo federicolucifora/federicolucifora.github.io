@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proposte indice capitoli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Proposals for the chapter index of the big projects (Mario Kart tracks). Only the orange family + cream + grey,
+     no colour fades (the black shade on the cards is the one already approved for the work cards). */
+  :root { --cream: #FFFCEE; --grey: #4e4e4e; --o1: #FED9B7; --o2: #FFA528; --o3: #9B5313; --r: 18px; --pad: 9px; --gap: 22px; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--cream); color: var(--grey); font-family: 'Rubik', sans-serif; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px 80px; }
+  h1 { margin: 32px 0 6px; font-size: 28px; }
+  .intro { margin: 0 0 8px; max-width: 80ch; line-height: 1.5; }
+  section.proposal { padding: 34px 0 44px; }
+  section.proposal + section.proposal { border-top: 2px dashed var(--o1); }
+  section.proposal > h2 { margin: 0 0 4px; font-size: 22px; color: var(--o3); }
+  section.proposal > .note { margin: 0 0 26px; max-width: 85ch; line-height: 1.5; font-size: 15px; }
+
+  /* ---- Shared parts: index of cards + chapter ---- */
+  .idxTitle { margin: 0 0 14px; font-weight: 700; font-size: 18px; color: var(--o3); }
+  .idx { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .idx li { position: relative; isolation: isolate; }
+  .card { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; border: none; padding: 0; border-radius: 12px;
+          overflow: hidden; cursor: pointer; background-size: cover; background-position: center; transition: transform .2s, opacity .2s; font: inherit; text-align: left; }
+  .card::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 45%;
+                 background: linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,.39) 45%, rgba(0,0,0,0)); }
+  .card span { position: absolute; left: 14px; bottom: 12px; right: 14px; z-index: 1; color: var(--cream); font-weight: 500; font-size: 17px; }
+  .card:hover { transform: translateY(-5px) rotate(-.5deg); }
+  .card[aria-current="true"]:hover { transform: none; }
+  .chapter { margin-top: var(--gap); display: flex; flex-direction: column; gap: 14px; }
+  .chapter h3 { margin: 0; font-size: 30px; font-weight: 700; color: var(--o3); }
+  .chapter p { margin: 0; font-weight: 500; font-size: 15px; line-height: 1.6; }
+  .stage { aspect-ratio: 16 / 9; width: min(100%, 520px); align-self: center; border-radius: 12px; background-size: cover; background-position: center; }
+  .strip { display: flex; gap: 8px; padding: 9px; background: var(--o1); border-radius: 12px; }
+  .strip i { width: 96px; aspect-ratio: 16 / 9; border-radius: 7px; background-size: cover; background-position: center; opacity: .55; }
+  .strip i:first-child { opacity: 1; }
+  .gallery { display: flex; flex-direction: column; gap: 10px; }
+
+  /* ---- A · Folder: tab with rounded joints + solid panel around the whole chapter ---- */
+  .pA .idx li[data-on]::before { content: ''; position: absolute; z-index: -1; inset: calc(-1 * var(--pad)) calc(-1 * var(--pad)) calc(-1 * var(--gap) - 2px);
+                                 background: var(--o1); border-radius: var(--r) var(--r) 0 0; }
+  .pA .chapter, .pB .text { background: var(--o1); border-radius: var(--r); }
+  .pA .chapter { margin-left: calc(-1 * var(--pad)); margin-right: calc(-1 * var(--pad)); padding: 26px var(--pad) var(--pad); }
+  .pA .chapter h3, .pA .chapter p { padding: 0 14px; }
+  .pA .strip { background: var(--cream); }          /* inside the orange panel the strip becomes cream */
+  /* Rounded joints between the tab and the panel ("inverted" corners, solid colour) */
+  .joint { display: none; position: absolute; bottom: calc(-1 * var(--gap)); width: var(--r); height: var(--r); z-index: -1; }
+  .joint.l { left: calc(-1 * var(--pad) - var(--r)); background: radial-gradient(circle at 0 0, transparent calc(var(--r) - .5px), var(--o1) var(--r)); }
+  .joint.r { right: calc(-1 * var(--pad) - var(--r)); background: radial-gradient(circle at 100% 0, transparent calc(var(--r) - .5px), var(--o1) var(--r)); }
+  .pA li[data-on] .joint, .pB li[data-on] .joint { display: block; }
+  .pA li:first-child .joint.l, .pA li:last-child .joint.r,
+  .pB li:first-child .joint.l, .pB li:last-child .joint.r { display: none !important; }
+  .pA .demo[data-sel="0"] .chapter, .pB .demo[data-sel="0"] .text { border-top-left-radius: 0; }
+  .pA .demo[data-sel="3"] .chapter, .pB .demo[data-sel="3"] .text { border-top-right-radius: 0; }
+
+  /* ---- B · Folder, but the panel holds only title + text; the gallery stays on the cream page ---- */
+  .pB .idx li[data-on]::before { content: ''; position: absolute; z-index: -1; inset: calc(-1 * var(--pad)) calc(-1 * var(--pad)) calc(-1 * var(--gap) - 2px);
+                                 background: var(--o1); border-radius: var(--r) var(--r) 0 0; }
+  .pB .text { display: flex; flex-direction: column; gap: 14px; margin: 0 calc(-1 * var(--pad)); padding: 26px calc(var(--pad) + 14px) 24px; }
+
+  /* ---- C · Only the base: the chosen card sits on a light orange frame; the chapter is plain ---- */
+  .pC .idx li[data-on]::before { content: ''; position: absolute; z-index: -1; inset: calc(-1 * var(--pad)); background: var(--o1); border-radius: var(--r); }
+  .pC .chapter { margin-top: 34px; }
+
+  /* ---- D · Underline: a thick rounded dark orange bar under the chosen card, like the tabs of an app ---- */
+  .pD .idx li::after { content: ''; position: absolute; left: 22%; right: 22%; bottom: -14px; height: 5px; border-radius: 5px;
+                       background: var(--o3); transform: scaleX(0); transition: transform .2s; }
+  .pD .idx li[data-on]::after { transform: scaleX(1); }
+  .pD .chapter { margin-top: 38px; }
+
+  /* ---- E · Speech bubble: base around the card + a small point that leads to a solid panel with title and text ---- */
+  .pE .idx li[data-on]::before { content: ''; position: absolute; z-index: -1; inset: calc(-1 * var(--pad)); background: var(--o1); border-radius: var(--r); }
+  .pE .idx li[data-on]::after { content: ''; position: absolute; left: 50%; bottom: calc(-1 * var(--pad) - 13px); width: 26px; height: 14px; transform: translateX(-50%);
+                                background: var(--o1); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+  .pE .chapter { margin-top: 34px; }
+
+  @media (max-width: 760px) {
+    .idx { grid-template-columns: repeat(2, 1fr); }
+    .card span { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Indice dei capitoli: proposte</h1>
+  <p class="intro">Cinque modi di mostrare quale pista è aperta, tutti a tinta unita (nessuna sfumatura di colore).
+     In ogni proposta puoi cliccare le card per cambiare pista. Colori: solo arancio chiaro #FED9B7, arancio scuro #9B5313, crema e grigio.</p>
+
+  <section class="proposal pA">
+    <h2>A · Cartella completa</h2>
+    <p class="note">La base della card scende e diventa un pannello arancio chiaro pieno che contiene <b>tutto</b> il capitolo (titolo, testo e galleria).
+      Gli angoli tra linguetta e pannello sono smussati. Dentro il pannello la striscia delle miniature diventa crema.</p>
+    <div class="demo"></div>
+  </section>
+
+  <section class="proposal pB">
+    <h2>B · Cartella solo per il testo</h2>
+    <p class="note">Come A, ma il pannello arancio contiene solo titolo e testo della pista. La galleria resta sotto, sul crema, uguale a ora.</p>
+    <div class="demo"></div>
+  </section>
+
+  <section class="proposal pC">
+    <h2>C · Solo la base</h2>
+    <p class="note">Nessun pannello: la card scelta sta su una cornice arancio chiaro un po' più grande. Il capitolo sotto è normale. La soluzione più leggera.</p>
+    <div class="demo"></div>
+  </section>
+
+  <section class="proposal pD">
+    <h2>D · Sottolineatura</h2>
+    <p class="note">Nessuno sfondo: sotto la card scelta compare una barretta arancio scuro arrotondata, come le schede di un'app. Cambiando pista la barretta si apre sotto la nuova card.</p>
+    <div class="demo"></div>
+  </section>
+
+  <section class="proposal pE">
+    <h2>E · Fumetto</h2>
+    <p class="note">La card scelta sta sulla cornice arancio chiaro (come C), con una piccola punta verso il basso, come un fumetto, che indica il capitolo sotto.</p>
+    <div class="demo"></div>
+  </section>
+</div>
+
+<script>
+  const IMG = '/Portfolio/@fs/C:/Users/lucir/Desktop/Lavoro/NewPortfolio/src/assets/materials/mkwii/';
+  const tracks = [
+    { title: 'Castle in the Sky', imgs: ['mkwii13', 'mkwii14', 'mkwii15', 'mkwii16', 'mkwii17'],
+      text: 'Castle in the Sky is a track set in the world of the omonimous Studio Ghibli movie. The track follows the events of the film, taking the player through its most iconic environments. The biggest challenge was working within the game\'s strict hardware limitations, while attempting to create very large environments.' },
+    { title: 'Snowpoint Valley', imgs: ['mkwii0', 'mkwii1', 'mkwii2'],
+      text: 'Snowpoint Valley is a simple track set in a snowy environment, featuring a few surprising turns and slopes. The track is inspired by various Mario Kart levels, such as Sherbet Land and Mount Wario.' },
+    { title: 'Dragon Burying Grounds', imgs: ['mkwii3', 'mkwii4', 'mkwii5'],
+      text: 'Dragon Burying Grounds is a track set in a volcanic landscape, designed to appeal to the more hardcore Mario Kart Wii fanbase. It features a series of challenging turns and, most importantly, well-placed shortcuts.' },
+    { title: 'Volcano Canyon', imgs: ['mkwii6', 'mkwii7', 'mkwii8'],
+      text: 'Volcano Canyon is a track set in an active volcanic region. The main goal of this track was to serve as a visual overhaul of an older track I created when I first started making Mario Kart Wii levels.' },
+  ];
+  const bg = (name) => `background-image:url('${IMG}${name}.jpg')`;
+
+  for (const demo of document.querySelectorAll('.demo')) {
+    const textInPanel = demo.closest('.pB') !== null;
+    const render = (sel) => {
+      const t = tracks[sel];
+      const gallery = `<div class="gallery"><div class="stage" style="${bg(t.imgs[0])}"></div>
+        <div class="strip">${t.imgs.map((n) => `<i style="${bg(n)}"></i>`).join('')}</div></div>`;
+      const head = `<h3>${t.title}</h3><p>${t.text}</p>`;
+      demo.dataset.sel = sel;
+      demo.innerHTML = `<div class="idxTitle">Tracks</div><ul class="idx">${tracks.map((tr, i) => `
+        <li ${i === sel ? 'data-on' : ''}><span class="joint l"></span><span class="joint r"></span>
+          <button class="card" aria-current="${i === sel}" style="${bg(tr.imgs[0])}"><span>${tr.title}</span></button></li>`).join('')}</ul>
+        <div class="chapter">${textInPanel ? `<div class="text">${head}</div>` : head}${gallery}</div>`;
+      demo.querySelectorAll('.card').forEach((card, i) => card.addEventListener('click', () => render(i)));
+    };
+    render(1);
+  }
+</script>
+</body>
+</html>

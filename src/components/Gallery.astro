@@ -1,0 +1,168 @@
+---
+// Gallery of a project: one big element (a picture, always whole, or a YouTube video), arrows on its sides, and under
+// it a coloured strip of small previews that you can scroll sideways. Clicking a preview shows it big.
+import { Image } from 'astro:assets';
+import type { GalleryItem } from '../images';
+
+interface Props {
+  items: GalleryItem[];
+}
+const { items } = Astro.props;
+const several = items.length > 1;
+// The big picture is a WebP at very high quality (99, with sharper colours: see astro.config.mjs): about
+// 250–350 KB for a 1280 px render, against 1.3–1.8 MB of the PNG and 66 KB of the default compression, which was
+// visibly too strong on the renders.
+// Videos use youtube-nocookie.com: YouTube does not store cookies until the video is played.
+const videoUrl = (id: string) => `https://www.youtube-nocookie.com/embed/${id}`;
+---
+
+<div class="gallery" data-gallery>
+  <div class={`galleryMain ${several ? 'withArrows' : ''}`}>
+    {
+      several && (
+        <button type="button" class="galleryArrow galleryArrowPrev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+        </button>
+      )
+    }
+    <div class="galleryStage">
+    {
+      items.map((item, i) =>
+        item.kind === 'image' ? (
+          <div class="galleryMainItem" hidden={i !== 0}>
+            <Image
+              src={item.picture}
+              alt={item.alt}
+              class="galleryMainImage"
+              width={Math.min(2000, item.picture.width)}
+              widths={[640, 960, 1280, 1600, 2000]}
+              sizes="(max-width: 600px) 92vw, 80vw"
+              quality={99}
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+          </div>
+        ) : (
+          <div class="galleryMainItem galleryVideo" hidden={i !== 0}>
+            <iframe
+              src={videoUrl(item.youtube)}
+              title={item.title}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            />
+          </div>
+        ),
+      )
+    }
+    </div>
+    {
+      several && (
+        <button type="button" class="galleryArrow galleryArrowNext" aria-label="Next">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+        </button>
+      )
+    }
+  </div>
+
+  {
+    several && (
+      <div class="galleryStrip">
+        <div class="galleryThumbs" aria-label="All the images and videos of the project">
+          {items.map((item, i) =>
+            item.kind === 'image' ? (
+              <button type="button" class="galleryThumb" aria-label={`Show: ${item.alt}`} aria-current={i === 0 ? 'true' : 'false'}>
+                <Image src={item.picture} alt="" width={Math.min(480, item.picture.width)} widths={[160, 320, 480]} sizes="12vw" />
+              </button>
+            ) : (
+              <button type="button" class="galleryThumb galleryThumbVideo" aria-label={`Play: ${item.title}`} aria-current={i === 0 ? 'true' : 'false'}>
+                <img src={`https://i.ytimg.com/vi/${item.youtube}/mqdefault.jpg`} alt="" width="320" height="180" loading="lazy" />
+                <span class="galleryPlay" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z" /></svg>
+                </span>
+              </button>
+            ),
+          )}
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  // Every gallery of the page works on its own.
+  for (const gallery of Array.from(document.querySelectorAll<HTMLElement>('[data-gallery]'))) {
+    const items = Array.from(gallery.querySelectorAll<HTMLElement>('.galleryMainItem'));
+    const thumbs = Array.from(gallery.querySelectorAll<HTMLElement>('.galleryThumb'));
+    const strip = gallery.querySelector<HTMLElement>('.galleryThumbs');
+    const wrapper = gallery.querySelector<HTMLElement>('.galleryStrip');
+    let current = 0;
+
+    function show(index: number) {
+      const next = (index + items.length) % items.length;
+      // A video that is being hidden is stopped (reloading it is the simplest way).
+      const leaving = items[current].querySelector('iframe');
+      if (leaving && next !== current) leaving.src = leaving.src;
+      current = next;
+      items.forEach((item, i) => (item.hidden = i !== current));
+      thumbs.forEach((thumb, i) => thumb.setAttribute('aria-current', String(i === current)));
+      // Keep the chosen preview visible in the strip (without moving the page).
+      const thumb = thumbs[current];
+      if (strip && thumb) {
+        const left = thumb.offsetLeft - strip.offsetLeft;
+        if (left < strip.scrollLeft || left + thumb.offsetWidth > strip.scrollLeft + strip.clientWidth) {
+          strip.scrollTo({ left: left - (strip.clientWidth - thumb.offsetWidth) / 2, behavior: 'smooth' });
+        }
+      }
+    }
+
+    thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => show(i)));
+    gallery.querySelector('.galleryArrowPrev')?.addEventListener('click', () => show(current - 1));
+    gallery.querySelector('.galleryArrowNext')?.addEventListener('click', () => show(current + 1));
+
+    // On touch screens, sliding the big picture sideways shows the next / previous one (on phones there are no arrows).
+    const stage = gallery.querySelector<HTMLElement>('.galleryStage');
+    if (stage && items.length > 1) {
+      let startX = 0;
+      let startY = 0;
+      stage.addEventListener('touchstart', (event) => {
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+      }, { passive: true });
+      stage.addEventListener('touchend', (event) => {
+        const dx = event.changedTouches[0].clientX - startX;
+        const dy = event.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) show(current + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+    }
+
+    if (strip && wrapper) {
+      // Fades at the edges of the strip, only where there is more to see.
+      const updateFades = () => {
+        const max = strip.scrollWidth - strip.clientWidth;
+        wrapper.classList.toggle('fadeLeft', strip.scrollLeft > 2);
+        wrapper.classList.toggle('fadeRight', strip.scrollLeft < max - 2);
+      };
+      strip.addEventListener('scroll', updateFades, { passive: true });
+      // Also when the strip changes size: a resized window, or a chapter that was hidden and is now shown.
+      new ResizeObserver(updateFades).observe(strip);
+      // Some pictures change the width of the strip when they finish loading.
+      strip.querySelectorAll('img').forEach((image) => image.addEventListener('load', updateFades));
+      updateFades();
+
+      // There is no scroll bar: the mouse wheel scrolls the strip sideways.
+      strip.addEventListener(
+        'wheel',
+        (event) => {
+          if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+          const max = strip.scrollWidth - strip.clientWidth;
+          const canMove = (event.deltaY > 0 && strip.scrollLeft < max) || (event.deltaY < 0 && strip.scrollLeft > 0);
+          if (!canMove) return;
+          event.preventDefault();
+          strip.scrollLeft += event.deltaY;
+          updateFades();
+        },
+        { passive: false },
+      );
+    }
+  }
+</script>

@@ -1,0 +1,86 @@
+title: Le Auto della Dolce Vita
+description: 3D modeling and environment art for the Triumph vintage sports car and the Trevi Fountain, created for Automobile Club Italia and designed for Apple Vision Pro.
+ogImage: materials/dolce_vita/cover.jpg
+order: 0
+listed: true
+featured: true
+areas:
+- 3d
+- motion
+year: '2025'
+client: 'Automobile Club Italia (ACI)'
+tools:
+- Blender
+- Substance Painter
+- Reality Composer Pro
+tags:
+- 3D Modeling
+- Texturing
+- Retopology
+- Baking
+cover:
+  src: dolce_vita/cover.jpg
+  position: bottom
+text: 'Le Auto della Dolce Vita is a project commissioned by the Automobile Club Italia. My main contribution to this project was the creation of the Triumph, a vintage sports car. I started with a pre-existing asset of a similar car and used reference images and photogrammetry to refine it into an accurate representation of the Triumph. I also created the environment in which the car is placed: the Trevi Fountain. The fountain was also based on a pre-existing model, which I then retopologized and retextured. Both the car and environment were designed for viewing on the Apple Vision Pro. The goal was to create a highly realistic car, nearly indistinguishable from the real one. Both the Triumph and the Trevi Fountain models consist of approximately 1 million triangles each.'
+responsibilities:
+- 3D Modeling
+- Texturing
+- Retopology
+- Baking
+card:
+  src: dolce_vita/cover.jpg
+blocks:
+- type: video
+  youtube: t96cyV0bwuw
+  width: 50%
+  height: 33vw
+- type: text
+  text: The project was also promoted on social media through motion graphics videos. I personally worked on the transition from a wireframe digital environment to a fully textured one.
+- type: image
+  src: dolce_vita/fountain_2.jpg
+  width: 56%
+  height: 30vw
+- type: image
+  src: dolce_vita/fountain_1.jpg
+  width: 40%
+  height: 30vw
+- type: image
+  src: dolce_vita/triumph_1.png
+  width: 40%
+  height: 30vw
+  fit: contain
+- type: image
+  src: dolce_vita/triumph_2.png
+  width: 30%
+  height: 30vw
+- type: image
+  src: dolce_vita/triumph_4.png
+  width: 40%
+  height: 35vw
+- type: image
+  src: dolce_vita/triumph_7.png
+  width: 50%
+  height: 35vw
+- type: image
+  src: dolce_vita/triumph_5.png
+  width: 50%
+  height: 35vw
+- type: image
+  src: dolce_vita/triumph_6.png
+  width: 30%
+  height: 35vw
+  fit: contain
+- type: image
+  src: dolce_vita/triumph_3.png
+  width: 40%
+  height: 50vw
+  fit: contain
+sections:
+  overview: |-
+    Le Auto della Dolce Vita is an immersive experience created for Automobile Club d'Italia as the first chapter of ACI Experience, a research project that connects Italy's motoring heritage with new technologies. Wearing an Apple Vision Pro, visitors take a virtual drive through the landmarks of the Roman Dolce Vita, from Via Veneto to the Trevi Fountain, starting from the Triumph TR3A driven by Marcello Mastroianni in Fellini's film.
+  role: |-
+    I created the Triumph and the Trevi Fountain environment. Starting from an existing model of a similar car, I used reference images and photogrammetry to rebuild it into an accurate Triumph; the fountain was also based on an existing model, which I retopologized and retextured.
+
+    The challenge was realism: the car had to be nearly indistinguishable from the real one while staying light enough for a headset, so both assets were optimized to about one million triangles each. I also worked on the motion graphics videos that promoted the project on social media, creating the transition from a wireframe environment to the fully textured scene.
+  result: |-
+    The experience was presented at the ACI stand of Auto e Moto d'Epoca in Bologna, where visitors tried it on Apple Vision Pro next to the real car. The two models delivered the level of detail needed for a convincing, close-up view in mixed reality.

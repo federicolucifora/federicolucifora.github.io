@@ -1,0 +1,855 @@
+@import './common.css';
+
+/* Project pages: cream background like the rest of the site, no boxes except the project card on the right.
+   Order: header → videos → texts → gallery → previous / next.
+   Colours: only the orange family of the original palette (#FED9B7 light, #9B5313 dark), see common.css. */
+
+body {
+    position: absolute;
+    width: 100%;
+    /* Footer: the space under Previous / Next is already more than the one below the footer,
+       so it is reduced to make above and below equal (see Footer.astro). */
+    --footer-top: -2vw;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        --footer-top: -2vw;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+    body {
+        --footer-top: -1vw;
+    }
+}
+
+/* Header ---------------------------------------------------------------------------------------------------------------------------*/
+
+.projectContainer {
+    margin: 6vw 4vw 0 4vw;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 4vw;
+    padding: 2vw 0 2vw 0;
+}
+
+.titleContainer {
+    display: block;
+}
+
+.projectTitle {
+    display: block;
+    font-weight: 700;
+    font-size: 4vw;
+    margin: 0 0 0.5vw 0;
+    color: #9B5313; /* dark orange: readable on the cream background */
+    text-wrap: wrap;
+}
+
+.projectTitle img {
+    margin-left: 2vw;
+    width: 3.5vw;
+    transform: translateY(5%);
+    transition: 0.2s;
+}
+
+.projectTitle img:hover {
+    transform-origin: bottom left;
+    transform: scale(1.05);
+}
+
+.projectText {
+    font-weight: 500;
+    font-size: 1.2vw;
+    line-height: 1.8vw;
+    margin: 1.5vw 0 0 0;
+}
+
+/* Text in sections: Overview, My role, Result (components/ProjectSections.astro) */
+.projectSections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8vw;
+    margin-top: 1.5vw;
+}
+
+.projectSectionTitle {
+    margin: 0 0 0.4vw 0;
+    font-weight: 700;
+    font-size: 1.4vw;
+    color: #9B5313;
+}
+
+.projectSection .projectText {
+    margin: 0;
+}
+
+.projectSection .projectText + .projectText {
+    margin-top: 0.9vw;
+}
+
+/* Project card on the right: Year / Client / Tools in a rounded box (only the lines that are filled in) */
+.projectFacts {
+    flex: 0 0 22vw;
+    margin: 1vw 0 0 0;
+    padding: 1.6vw 2vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1vw;
+    background-color: #FED9B7;
+    border-radius: 1vw;
+}
+
+.projectFact dt {
+    color: #9B5313;
+    font-weight: 700;
+    font-size: 1.1vw;
+}
+
+.projectFact dd {
+    margin: 0.2vw 0 0 0;
+    font-weight: 500;
+    font-size: 1.2vw;
+    line-height: 1.7vw;
+}
+
+/* Content --------------------------------------------------------------------------------------------------------------------------*/
+
+.storyContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    padding: 1vw 4vw 4vw 4vw;
+}
+
+/* Texts: straight on the page, with lines kept short enough to be read comfortably. */
+.storyText p {
+    max-width: 62vw;
+    margin: 0;
+    font-weight: 500;
+    font-size: 1.2vw;
+    line-height: 1.8vw;
+}
+
+.storyText p + p {
+    margin-top: 1.2vw;
+}
+
+/* Gallery: one big picture (always whole) + a strip of small pictures to scroll sideways ------------------------------------------*/
+
+.gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+/* Big area: arrows on the two sides, and in the middle a 16:9 "stage" (the shape of the videos and of most pictures),
+   never taller than 80% of the screen. */
+.galleryMain {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: 1vw;
+}
+
+.galleryMain.withArrows {
+    grid-template-columns: auto 1fr auto;
+}
+
+.galleryStage {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 80vh;
+    min-width: 0;
+}
+
+.galleryMainItem {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.galleryMainItem[hidden] {
+    display: none;
+}
+
+.galleryMainImage {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 1vw;
+}
+
+/* Arrows: always visible, next to the picture. The icon is a thin rounded chevron drawn in the button colour. */
+.galleryArrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2vw;
+    height: 3.2vw;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: #FED9B7;
+    color: #9B5313;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.galleryArrow svg {
+    width: 55%;
+    height: 55%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.galleryArrow:hover,
+.galleryArrow:focus-visible {
+    background-color: #9B5313;
+    color: #FFFCEE;
+    outline: none;
+}
+
+/* Video in the big area: always 16:9, as big as the area allows. */
+.galleryVideo iframe {
+    display: block;
+    width: min(100%, calc(80vh * 16 / 9));
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: none;
+    border-radius: 1vw;
+}
+
+/* Strip of previews: no background, centred under the picture; no scroll bar, the previews fade out at the edges
+   where the strip continues. */
+.galleryStrip {
+    --fade-left: 0px;
+    --fade-right: 0px;
+}
+
+.galleryStrip.fadeLeft {
+    --fade-left: 7vw;
+}
+
+.galleryStrip.fadeRight {
+    --fade-right: 7vw;
+}
+
+.galleryThumbs {
+    width: fit-content; /* as wide as the previews (centred), or the whole width when they don't fit */
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.6vw;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-left), #000 calc(100% - var(--fade-right)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-left), #000 calc(100% - var(--fade-right)), transparent 100%);
+}
+
+.galleryThumbs::-webkit-scrollbar {
+    display: none;
+}
+
+.galleryThumb {
+    position: relative;
+    flex: 0 0 auto;
+    height: 6vw;
+    padding: 0;
+    border: none;
+    background: none;
+    border-radius: 0.6vw;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.55;
+    scroll-snap-align: start;
+    transition: opacity 0.2s;
+}
+
+.galleryThumb img {
+    display: block;
+    height: 100%;
+    width: auto;
+}
+
+.galleryThumb:hover,
+.galleryThumb:focus-visible {
+    opacity: 0.85;
+    outline: none;
+}
+
+/* The preview of what is on show is simply fully visible. */
+.galleryThumb[aria-current="true"] {
+    opacity: 1;
+}
+
+/* Play sign on the previews of the videos. */
+.galleryPlay {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    width: 2.4vw;
+    height: 2.4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* The triangle is drawn (not a text character), so the circle stays perfectly round. */
+.galleryPlay svg {
+    width: 60%;
+    height: 60%;
+    fill: #FFFCEE;
+}
+
+/* Chapters (big projects, e.g. the Mario Kart tracks): index of small pictures, then one section per chapter --------------------*/
+
+.chapterIndex {
+    margin-top: 1vw;
+}
+
+.chapterIndexTitle {
+    margin: 0 0 calc(1vw + var(--tab-pad)) 0; /* room above the line of the folder */
+    font-weight: 700;
+    font-size: 1.4vw;
+    color: #9B5313;
+}
+
+/* The chapter on show is like a folder drawn with a thin light orange line: its card is the tab, the panel below holds
+   the whole chapter (title, text and gallery). The line is drawn by the script of the page (work/[slug].astro) as one
+   single shape; here are only the spaces it follows.
+   --tab-pad = space between the line and the cards: around the chosen card, and between the line and the other cards
+   (so it is also the space between the cards, and the radius of the curves where the tab widens into the panel).
+   --card-radius = corners of the cards; the corners of the line are card corners + tab-pad, so the curves run parallel. */
+.storyContainer {
+    --tab-pad: 0.8vw;
+    --card-radius: 1vw;
+    --line-width: 2px;
+    position: relative;
+}
+
+/* The folder lines up with the rest of the page: the cards and the contents sit tab-pad inside it. */
+.chapterIndexList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(2 * var(--tab-pad));
+    margin: 0;
+    padding: 0 var(--tab-pad);
+    list-style: none;
+}
+
+/* The cards are the ones of the work page (styles/cards.css), but rectangular (16:9).
+   The cards not chosen are a little transparent. */
+.chapterIndexList .chapterIndexCard {
+    aspect-ratio: 16 / 9;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+/* A chapter without pictures yet: its card is plain light orange. */
+.chapterIndexCard .workCardImage {
+    background-color: #FED9B7;
+}
+
+.chapterIndexCard[aria-current="false"] {
+    opacity: 0.6;
+}
+
+.chapterIndexCard:hover,
+.chapterIndexCard:focus-visible {
+    opacity: 1;
+}
+
+/* The chosen card stays still inside its line. */
+.chapterIndexCard[aria-current="true"]:hover {
+    transform: none;
+}
+
+/* The line of the folder (drawn by the script). */
+.chapterOutline {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.chapterOutline path {
+    fill: none;
+    stroke: #FED9B7;
+    stroke-width: var(--line-width);
+}
+
+/* Chapter texts use the whole width of the page. */
+.chapter .storyText p {
+    max-width: none;
+}
+
+/* A little more space between the text of a chapter and its gallery. */
+.chapter .storyText {
+    margin-bottom: 1.4vw;
+}
+
+.chapter[hidden] {
+    display: none;
+}
+
+/* The panel: as wide as the page content, it starts tab-pad below the cards; inside, title, text and gallery keep
+   the same space from the line on all sides. */
+.chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+    margin-top: calc(var(--tab-pad) - 2vw); /* 2vw = space of storyContainer */
+    padding: 2vw 2vw 1.5vw 2vw; /* same space from the line on every side, a little less at the bottom */
+    scroll-margin-top: 5vw; /* stops below the fixed menu bar */
+}
+
+.chapterTitle {
+    margin: 0;
+    font-weight: 700;
+    font-size: 2.4vw;
+    color: #9B5313;
+}
+
+/* Previous / next: low, wide buttons with a small picture --------------------------------------------------------------------------*/
+
+.projectNav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 2vw;
+    padding: 1vw 4vw 5vw 4vw;
+}
+
+/* Previous, "All work" and Next all sit on the same row. */
+.projectNavButton,
+.allWork {
+    grid-row: 1;
+}
+
+.projectNavButton {
+    display: flex;
+    align-items: center;
+    gap: 1.2vw;
+    width: 26vw;
+    padding: 0.8vw 1.6vw 0.8vw 0.8vw;
+    background-color: #FED9B7;
+    border-radius: 1vw;
+    transition: 0.2s;
+}
+
+.projectNavButton.previous {
+    grid-column: 1;
+    justify-self: start;
+}
+
+.projectNavButton.next {
+    grid-column: 3;
+    justify-self: end;
+    flex-direction: row-reverse;
+    padding: 0.8vw 0.8vw 0.8vw 1.6vw;
+    text-align: right;
+}
+
+.projectNavThumb {
+    flex: 0 0 auto;
+    width: 4.5vw;
+    height: 4.5vw;
+    object-fit: cover;
+    border-radius: 0.6vw;
+}
+
+/* Chevron (same drawing as the gallery arrows): only on phones, instead of the words. */
+.projectNavChevron {
+    display: none;
+    flex: none;
+    fill: none;
+    stroke: #9B5313;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.projectNavButton:hover .projectNavChevron,
+.projectNavButton:focus-visible .projectNavChevron {
+    stroke: #FFFCEE;
+}
+
+.projectNavText {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2vw;
+    min-width: 0;
+}
+
+.projectNavLabel {
+    font-weight: 700;
+    font-size: 1vw;
+    color: #9B5313;
+}
+
+.projectNavTitle {
+    font-weight: 500;
+    font-size: 1.2vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.projectNavButton:hover,
+.projectNavButton:focus-visible {
+    background-color: #9B5313;
+    color: #FFFCEE;
+    outline: none;
+}
+
+.projectNavButton:hover .projectNavLabel,
+.projectNavButton:focus-visible .projectNavLabel {
+    color: #FED9B7;
+}
+
+.allWork {
+    grid-column: 2;
+    font-weight: 500;
+    font-size: 1.2vw;
+    padding: 1vw 2.2vw;
+    border-radius: 50vw;
+    background-color: #FFFCEE;
+    color: #4e4e4e;
+    box-shadow: inset 0 0 0 0.12vw #4e4e4e;
+    transition: 0.2s;
+}
+
+.allWork:hover,
+.allWork:focus-visible {
+    background-color: #4e4e4e;
+    color: #FFFCEE;
+    outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .galleryThumb,
+    .galleryArrow,
+    .chapterIndexCard,
+    .projectNavButton,
+    .allWork {
+        transition: none;
+    }
+}
+
+/* Phones ---------------------------------------------------------------------------------------------------------------------------*/
+
+@media only screen and (max-width: 600px) {
+
+    .projectContainer {
+        margin: 14vw 4vw 0 4vw;
+    }
+
+    /* On phones the Year / Tools box comes right under the title, before the texts. */
+    .headerContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch; /* the Year / Tools box takes the whole width */
+        gap: 0;
+        padding: 4vw 0 3vw 0;
+    }
+
+    .titleContainer {
+        display: contents;
+    }
+
+    .projectFacts {
+        order: 1;
+    }
+
+    .projectSections,
+    .titleContainer > .projectText {
+        order: 2;
+    }
+
+    .projectTitle {
+        font-size: 5.7vw;
+        margin-bottom: 2vw;
+    }
+
+    .projectTitle img {
+        margin-left: 3vw;
+        width: 4vw;
+    }
+
+    .projectText,
+    .projectFact dd,
+    .storyText p {
+        font-size: 3.4vw;
+        line-height: 4.8vw;
+    }
+
+    .projectSections {
+        gap: 5vw;
+        margin-top: 3vw;
+    }
+
+    .projectSectionTitle {
+        font-size: 4.2vw;
+        margin-bottom: 1.5vw;
+    }
+
+    .projectSection .projectText + .projectText {
+        margin-top: 3vw;
+    }
+
+    .projectFacts {
+        flex: none;
+        margin-top: 2vw;
+        padding: 4vw 5vw;
+        gap: 3vw;
+        border-radius: 3vw;
+    }
+
+    .projectFact dt {
+        font-size: 3.4vw;
+    }
+
+    .storyContainer {
+        gap: 5vw;
+        padding: 3vw 4vw 6vw 4vw;
+    }
+
+    .storyText p {
+        max-width: none;
+    }
+
+    .storyText p + p {
+        margin-top: 3vw;
+    }
+
+    .galleryMainImage,
+    .galleryVideo iframe {
+        border-radius: 2vw;
+    }
+
+    .galleryStrip.fadeLeft {
+        --fade-left: 14vw;
+    }
+
+    .galleryStrip.fadeRight {
+        --fade-right: 14vw;
+    }
+
+    .galleryPlay {
+        width: 7vw;
+        height: 7vw;
+    }
+
+    .gallery {
+        gap: 2vw;
+    }
+
+    /* On phones there are no arrows: you change picture by sliding the big picture sideways
+       (script in components/Gallery.astro) or by tapping the small previews. */
+    .galleryMain.withArrows {
+        grid-template-columns: 1fr;
+    }
+
+    .galleryArrow {
+        display: none;
+    }
+
+    .galleryThumbs {
+        gap: 2vw;
+    }
+
+    .galleryThumb {
+        height: 16vw;
+        border-radius: 1.5vw;
+    }
+
+    .chapterIndex {
+        margin-top: 2vw;
+    }
+
+    .chapterIndexTitle {
+        font-size: 4.2vw;
+        margin-bottom: calc(3vw + var(--tab-pad));
+    }
+
+    /* On phones too the four cards stay on one row, so the folder keeps its shape. The cards are small:
+       their titles are hidden (the name of the chosen track is the title of the chapter below). */
+    .storyContainer {
+        --tab-pad: 1.5vw;
+        --card-radius: 2vw;
+    }
+
+    .chapterIndexList .chapterIndexCard {
+        border-radius: var(--card-radius);
+    }
+
+    .chapterIndexCard .workCardCaption {
+        display: none;
+    }
+
+    .chapterIndexCard .workCardImage::after {
+        display: none; /* no dark shade without the title */
+    }
+
+    .chapter {
+        gap: 3vw;
+        margin-top: calc(var(--tab-pad) - 5vw); /* 5vw = space of storyContainer */
+        padding: 5vw 4vw 4vw 4vw;
+        scroll-margin-top: 14vw;
+    }
+
+    .chapter .storyText {
+        margin-bottom: 3.5vw;
+    }
+
+    .chapterTitle {
+        font-size: 5.7vw;
+    }
+
+    /* On phones Previous, All work and Next stay on one line: the buttons show only the picture and a chevron
+       (the same drawing as the gallery arrows), not the words or the name of the project.
+       The two buttons have the same content, so they are equally wide and All work sits in the middle of the page. */
+    .projectNav {
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: 4vw;
+        padding: 3vw 4vw 10vw 4vw;
+    }
+
+    .projectNavButton,
+    .projectNavButton.previous,
+    .projectNavButton.next {
+        width: auto;
+        gap: 2vw;
+        padding: 2vw;
+        border-radius: 3vw;
+    }
+
+    .projectNavThumb {
+        width: 10vw;
+        height: 10vw;
+        border-radius: 1.8vw;
+    }
+
+    /* The chevron is on the outer side: "< picture" and "picture >". */
+    .projectNavChevron {
+        display: block;
+        order: -1;
+        width: 6vw;
+        height: 6vw;
+    }
+
+    .projectNavText {
+        display: none;
+    }
+
+    .allWork {
+        font-size: 3.4vw;
+        padding: 2.5vw 4vw;
+        white-space: nowrap;
+        box-shadow: inset 0 0 0 0.3vw #4e4e4e;
+    }
+}
+
+/* Tablets --------------------------------------------------------------------------------------------------------------------------*/
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+
+    .projectContainer {
+        margin: 10vw 4vw 0 4vw;
+    }
+
+    .projectText,
+    .projectFact dd,
+    .storyText p {
+        font-size: 1.6vw;
+        line-height: 2.6vw;
+    }
+
+    .projectFact dt {
+        font-size: 1.6vw;
+    }
+
+    .projectFacts {
+        flex-basis: 26vw;
+    }
+
+    .projectSectionTitle {
+        font-size: 2vw;
+    }
+
+    .storyText p {
+        max-width: none;
+    }
+
+    .galleryThumb {
+        height: 9vw;
+    }
+
+    .chapterIndexTitle {
+        font-size: 2vw;
+    }
+
+    .chapterIndexCard .workCardTitle {
+        font-size: 1.9vw;
+    }
+
+    .storyContainer {
+        --card-radius: 1.5vw; /* corners of the cards on tablets (cards.css) */
+    }
+
+    .chapter {
+        scroll-margin-top: 10vw;
+    }
+
+    .chapterTitle {
+        font-size: 3.6vw;
+    }
+
+    .galleryArrow {
+        width: 4.5vw;
+        height: 4.5vw;
+    }
+
+    .projectNavButton {
+        width: 34vw;
+    }
+
+    .projectNavThumb {
+        width: 6vw;
+        height: 6vw;
+    }
+
+    .projectNavLabel {
+        font-size: 1.5vw;
+    }
+
+    .projectNavTitle {
+        font-size: 1.8vw;
+    }
+
+    .allWork {
+        font-size: 1.8vw;
+        padding: 1.5vw 3vw;
+    }
+}

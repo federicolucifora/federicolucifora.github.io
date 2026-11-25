@@ -1,0 +1,117 @@
+---
+// Small footer at the bottom of the pages (home, About, Work, project pages):
+// two tiny cards, centred, in the colours of the Contacts buttons: icon + address only.
+// The empty space above the cards must be the same as the one below them. Every page ends with some
+// space of its own, so each page sets --footer-top (in its CSS) to add only what is missing.
+import { getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { img } from '../images';
+
+const site = (await getEntry('site', 'site'))!.data;
+const mailIcon = await img('mail.png');
+const linkedinIcon = await img('linkedin.png');
+// What is shown for LinkedIn: the last part of the address (e.g. "federico-lucifora").
+const linkedinName = site.linkedin.replace(/\/+$/, '').split('/').pop();
+---
+
+<footer class="siteFooter">
+  <a href={`mailto:${site.email}`} class="footerCard bcolor2_1 color2_3" aria-label={`Email: ${site.email}`}>
+    <Image src={mailIcon} alt="" width={48} height={48} class="footerIcon" />
+    <span class="footerLong">{site.email}</span>
+    <span class="footerShort">Email</span>
+  </a>
+  <a href={site.linkedin} class="footerCard bcolor3_1 color3_3" target="_blank" rel="noopener" aria-label={`LinkedIn: ${linkedinName}`}>
+    <Image src={linkedinIcon} alt="" width={48} height={48} class="footerIcon" />
+    <span class="footerLong">{linkedinName}</span>
+    <span class="footerShort">LinkedIn</span>
+  </a>
+</footer>
+
+<style>
+  .siteFooter {
+    display: flex;
+    justify-content: center;
+    gap: 0.8vw;
+    margin: var(--footer-top, 0) 5vw 0 5vw;
+    padding-bottom: 3vw; /* space below the cards (the same as above) */
+  }
+
+  /* Hidden while the page title is being typed (see PageIntro.astro): it appears with the content. */
+  :global(.introPlay) .siteFooter {
+    visibility: hidden;
+  }
+
+  /* Tiny card: icon + address. */
+  .footerCard {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    padding: 0.4vw 0.8vw 0.4vw 0.5vw;
+    border-radius: 0.6vw;
+    font-size: max(0.85vw, 11px); /* never smaller than 11px, so it stays readable on small screens */
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: transform .2s;
+  }
+
+  .footerCard:hover {
+    transform: scale(1.05);
+  }
+
+  .footerIcon {
+    width: max(1.4vw, 18px);
+    height: max(1.4vw, 18px);
+  }
+
+  /* On phones the full address would be too long: the cards say just "Email" and "LinkedIn", side by side. */
+  .footerShort {
+    display: none;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .footerLong {
+      display: none;
+    }
+
+    .footerShort {
+      display: inline;
+    }
+
+    .siteFooter {
+      gap: 2vw;
+      padding-bottom: 8vw;
+    }
+
+    .footerCard {
+      gap: 1.8vw;
+      padding: 2.2vw 3.8vw 2.2vw 2.6vw;
+      border-radius: 3vw; /* as round as the project cards on phones (cards.css) */
+      font-size: 3.4vw;
+    }
+
+    .footerIcon {
+      width: 5.4vw;
+      height: 5.4vw;
+    }
+  }
+
+  @media only screen and (min-width: 600px) and (max-width: 992px) {
+    .siteFooter {
+      gap: 1.2vw;
+      padding-bottom: 4vw;
+    }
+
+    .footerCard {
+      gap: 0.7vw;
+      padding: 0.6vw 1.1vw 0.6vw 0.7vw;
+      border-radius: 0.9vw;
+      font-size: max(1.25vw, 11px);
+    }
+
+    .footerIcon {
+      width: max(2vw, 18px);
+      height: max(2vw, 18px);
+    }
+  }
+</style>

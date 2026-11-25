@@ -1,0 +1,67 @@
+title: Ferrari Roma Spider
+description: A highly detailed, million-triangle 3D model of the Ferrari Roma Spider, created for visualization on Apple Vision Pro.
+ogImage: materials/ferrari/cover.jpg
+order: 9
+listed: true
+featured: false
+areas:
+- 3d
+year: '2025'
+client: 'Internal project'
+tools:
+- Blender
+- Substance Painter
+- Reality Composer Pro
+tags:
+- 3D Modeling
+- Texturing
+- Retopology
+cover:
+  src: ferrari/cover.jpg
+  position: center 35%
+text: The Ferrari Roma Spider is a sports car with a design that strongly represents its brand. The goal was to create a highly detailed model for visualization on the Apple Vision Pro, with a target polycount of 1,000,000 triangles.
+responsibilities:
+- 3D Modeling
+- Texturing
+- Retopology
+card:
+  src: ferrari/cover.jpg
+  position: 30%
+blocks:
+- type: image
+  src: ferrari/ferrari_1.png
+  width: 50%
+  height: 35vw
+- type: image
+  src: ferrari/ferrari_8.png
+  width: 30%
+  height: 35vw
+  fit: contain
+- type: image
+  src: ferrari/ferrari_2.png
+  width: 50%
+  height: 35vw
+- type: image
+  src: ferrari/ferrari_4.png
+  width: 40%
+  height: 35vw
+- type: image
+  src: ferrari/ferrari_5.jpg
+  width: 40%
+  height: 35vw
+- type: image
+  src: ferrari/ferrari_3.png
+  width: 50%
+  height: 35vw
+- type: image
+  src: ferrari/ferrari_6.png
+  width: 45%
+  height: 50vw
+  position: right
+sections:
+  overview: |-
+    The Ferrari Roma Spider is a car whose design strongly represents its brand. This internal project set out to recreate it as a highly detailed 3D model for viewing on Apple Vision Pro.
+  role: |-
+    I modeled, retopologized and textured the whole car, from the bodywork to the interior. The challenge was to capture the subtle surfaces and details of the Ferrari design language while staying within a target of 1,000,000 triangles, so that the model could be displayed smoothly in mixed reality.
+  result: |-
+    The finished Roma Spider can be explored up close on Apple Vision Pro, showing how far a single asset can go in realism within the limits of a headset.

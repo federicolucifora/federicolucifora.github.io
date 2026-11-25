@@ -1,0 +1,52 @@
+---
+import { url } from '../lib';
+
+interface Props {
+  /** Colour of the thin line under the bar once the page is scrolled. */
+  scrollColor: string;
+}
+const { scrollColor } = Astro.props;
+---
+
+<div id="navbar" data-scroll-color={scrollColor}>
+  <div id="closeButton" class="closeButton">&lt;</div>
+  <a id="myName" href={url('index.html')} class="textNavbar">Federico Lucifora</a>
+  <div id="navbarItemsContainer">
+    <a href={url('about.html')} id="about" class="navbarItem textNavbar collapsedNavbarItem bcolor1_1 color1_3">about</a>
+    <a href={url('work.html')} id="work" class="navbarItem textNavbar collapsedNavbarItem bcolor2_1 color2_3">work</a>
+    <a href={url('contacts.html')} id="contacts" class="navbarItem textNavbar collapsedNavbarItem bcolor3_1 color3_3">contacts</a>
+  </div>
+</div>
+
+<script>
+  // Behaviour of the bar: on phones the menu opens when you tap it, and a line appears when you scroll.
+  const navbar = document.getElementById('navbar') as HTMLElement;
+  const closeButton = document.getElementById('closeButton') as HTMLElement;
+  const itemsContainer = document.getElementById('navbarItemsContainer') as HTMLElement;
+  const myName = document.getElementById('myName') as HTMLElement;
+  const items = Array.from(document.querySelectorAll<HTMLElement>('.navbarItem'));
+  const scrollColor = navbar.dataset.scrollColor ?? '#FFC5B3';
+
+  function hideMenu() {
+    items.forEach((item) => item.classList.add('collapsedNavbarItem'));
+    myName.classList.remove('collapsedNavbarItem');
+    itemsContainer.style.marginRight = '2vw';
+    closeButton.classList.remove('visibleCloseButton');
+  }
+
+  function showMenu() {
+    items.forEach((item) => item.classList.remove('collapsedNavbarItem'));
+    myName.classList.add('collapsedNavbarItem');
+    itemsContainer.style.marginRight = '0vw';
+    setTimeout(() => closeButton.classList.add('visibleCloseButton'), 200);
+  }
+
+  function updateBorder() {
+    navbar.style.borderColor = document.documentElement.scrollTop > 0 ? scrollColor : '#FFFCEE';
+  }
+
+  closeButton.addEventListener('click', hideMenu);
+  itemsContainer.addEventListener('click', showMenu);
+  window.addEventListener('scroll', updateBorder, { passive: true });
+  updateBorder();
+</script>

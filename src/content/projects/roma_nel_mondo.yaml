@@ -1,0 +1,55 @@
+title: The DNA of Rome
+description: 'Federico Lucifora''s contribution to The DNA of Rome (MAXXI Museum): building the experience in Reality Composer Pro and managing the infographics projected onto the terracotta city model.'
+ogImage: materials/roma_nel_mondo/cover.jpg
+order: 6
+listed: true
+featured: false
+areas:
+- 3d
+- visual
+- interactive
+year: '2026'
+client: 'MAXXI, "Roma nel Mondo"'
+tools:
+- Blender
+- Reality Composer Pro
+- Affinity
+tags:
+- Reality Composer Pro
+- Infographic Design
+- Projection Mapping
+cover:
+  src: roma_nel_mondo/cover.jpg
+text: The DNA of Rome is an installation created for Roma nel Mondo at MAXXI Museum, where light and data are projected onto a monumental terracotta model of the city, turning it into a living map of Rome's history and infrastructure.
+responsibilities:
+- Reality Composer Pro
+- Infographic Design
+- Projection Mapping
+card:
+  src: roma_nel_mondo/cover.jpg
+blocks:
+- type: text
+  text:
+  - My work on the project centered on Reality Composer Pro, where I built the spatial experience ahead of installation.
+  - I was also responsible for managing the infographics, making sure each one matched the terracotta model's surface and geometry so the projections stayed precisely aligned during the show.
+  width: 45%
+  height: 30vw
+- type: image
+  src: roma_nel_mondo/roma1.jpg
+  width: 45%
+  height: 30vw
+- type: image
+  src: roma_nel_mondo/roma2.jpg
+  width: 60%
+  height: 40vw
+- type: video
+  youtube: 2_kqe6IGNPc
+  width: 35%
+  height: 40vw
+sections:
+  overview: |-
+    The DNA of Rome is the closing section of “Roma nel Mondo”, the exhibition curated by Ricky Burdett at MAXXI in Rome (December 2025 – April 2026). Light and data are projected onto Terracotta Rome, a monumental model of the city made of 953 terracotta tiles, turning it into a living map of Rome's history and infrastructure.
+  role: |-
+    I built the spatial experience in Reality Composer Pro ahead of the installation and managed the infographics projected onto the model. The challenge was precision: every infographic had to match the surface and geometry of the physical model, so that the projections stayed perfectly aligned throughout the show.
+  result: |-
+    The installation accompanied the exhibition for its whole run, giving visitors a dynamic reading of the city's past and present directly on the largest model of Rome ever produced.

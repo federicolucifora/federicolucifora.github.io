@@ -1,0 +1,145 @@
+@import './common.css';
+@import './cards.css';
+
+/* Work page: big title and area filters. The project cards are in cards.css (shared with the home page).
+   Colours come only from the original palette (see common.css). */
+
+/* Footer: the space under the grid is already a bit more than the one below the footer,
+   so it is reduced to make above and below equal (see Footer.astro). */
+body {
+    --footer-top: -1vw;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        --footer-top: 0;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+    body {
+        --footer-top: 0;
+    }
+}
+
+/* Big title -------------------------------------------------------------------------------------------------------------------------*/
+
+#pageTitle {
+    display: block;
+    font-weight: 800;
+    font-size: 20.2vw;
+    text-align: center;
+    width: 100%;
+    margin: 8vw 0 5vw 0;
+}
+
+/* Filters --------------------------------------------------------------------------------------------------------------------------*/
+
+/* A row of buttons aligned with the edge of the grid. The space under it is the same as the space
+   between the cards (the gap of .workGrid), so filters and cards look evenly spaced. */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5vw;
+    margin: 0 1vw 1vw 1vw;
+}
+
+.filterButton {
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 1vw;
+    padding: 0.9vw 1.4vw;
+    border-radius: 50vw; /* fully rounded, like the area labels on the cards */
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.filterButton:focus-visible {
+    outline: 0.2vw solid #4e4e4e;
+    outline-offset: 0.2vw;
+}
+
+/* "All": grey outline when off, filled grey when on */
+.filterAll {
+    background-color: #FFFCEE;
+    color: #4e4e4e;
+    box-shadow: inset 0 0 0 0.12vw #4e4e4e;
+}
+
+.filterAll[aria-pressed="true"] {
+    background-color: #4e4e4e;
+    color: #FFFCEE;
+}
+
+/* Areas: light background + dark text when off, dark background + cream text when on */
+.filterButton.family1 { background-color: #FED9B7; color: #9B5313; }
+.filterButton.family2 { background-color: #FFC5B3; color: #931F1F; }
+.filterButton.family3 { background-color: #C3EAE4; color: #134B4C; }
+.filterButton.family4 { background-color: #FFD7DC; color: #912046; }
+
+.filterButton.family1[aria-pressed="true"] { background-color: #9B5313; color: #FFFCEE; }
+.filterButton.family2[aria-pressed="true"] { background-color: #931F1F; color: #FFFCEE; }
+.filterButton.family3[aria-pressed="true"] { background-color: #134B4C; color: #FFFCEE; }
+.filterButton.family4[aria-pressed="true"] { background-color: #912046; color: #FFFCEE; }
+
+.noResults {
+    font-weight: 500;
+    font-size: 1.5vw;
+    text-align: center;
+    margin: 4vw 0 8vw 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .filterButton {
+        transition: none;
+    }
+}
+
+/* Phones ---------------------------------------------------------------------------------------------------------------------------*/
+
+@media only screen and (max-width: 600px) {
+
+    #pageTitle {
+        font-size: 20.2vw;
+        margin: 20vw 0 8vw 0;
+    }
+
+    .filters {
+        gap: 1.5vw;
+        margin: 0 4vw 3vw 4vw;
+    }
+
+    .filterButton {
+        font-size: 3.5vw;
+        padding: 2.5vw 3.5vw;
+    }
+
+    .filterAll {
+        box-shadow: inset 0 0 0 0.3vw #4e4e4e;
+    }
+
+    .noResults {
+        font-size: 4.5vw;
+    }
+}
+
+/* Tablets --------------------------------------------------------------------------------------------------------------------------*/
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+
+    #pageTitle {
+        margin: 15vw 0 6vw 0;
+    }
+
+    .filters {
+        gap: 1vw;
+        margin: 0 1.5vw 1.5vw 1.5vw;
+    }
+
+    .filterButton {
+        font-size: 2vw;
+        padding: 1.5vw 2vw;
+    }
+}

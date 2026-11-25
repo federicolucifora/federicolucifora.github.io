@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sfondo delle card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  /* Colour picker for the background of the work cards, shown on the cream page background. */
+  body { margin: 0; background: #FFFCEE; color: #4e4e4e; font-family: 'Rubik', sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+  h1 { margin: 28px 0 6px; font-size: 26px; }
+  .intro { margin: 0 0 18px; max-width: 70ch; line-height: 1.5; }
+  .panel { position: sticky; top: 0; z-index: 5; background: #FFFCEE; padding: 14px 0; border-bottom: 1px solid #FED9B7;
+           display: grid; grid-template-columns: auto 1fr 1fr; gap: 14px 24px; align-items: center; }
+  .picker { display: flex; align-items: center; gap: 12px; grid-row: span 2; }
+  .picker input[type=color] { width: 64px; height: 64px; border: none; padding: 0; background: none; cursor: pointer; }
+  .picker .hex { font-size: 22px; font-weight: 700; }
+  .picker button { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1.5px solid #4e4e4e; background: #FFFCEE; color: #4e4e4e; cursor: pointer; }
+  label.slider { display: flex; flex-direction: column; gap: 4px; font-size: 14px; font-weight: 500; }
+  label.slider input { width: 100%; accent-color: #9B5313; }
+  .presets { grid-column: 2 / 4; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14px; }
+  .presets button { font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px;
+                    border-radius: 999px; border: 1px solid #e6dcc4; background: #FFFCEE; color: #4e4e4e; cursor: pointer; }
+  .presets i { width: 20px; height: 20px; border-radius: 50%; border: 1px solid rgba(0,0,0,.12); }
+  .warning { grid-column: 1 / 4; font-size: 14px; color: #931F1F; min-height: 1.2em; margin: 0; }
+  section { padding: 24px 0; }
+  section h2 { margin: 0 0 12px; font-size: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card { border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; background: var(--card, #F9E4CB); }
+  .card.bordered { border: 3px solid #FFC5B3; background: #FFFCEE; }
+  .card .img { aspect-ratio: 4 / 3; background-size: cover; background-position: center; }
+  .card .cap { display: flex; flex-direction: column; gap: 9px; padding: 14px 16px 16px; }
+  .card .title { font-weight: 500; font-size: 19px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-weight: 500; font-size: 12px; padding: 4px 11px; border-radius: 999px; }
+  .t3d { background: #FED9B7; color: #9B5313; } .tvisual { background: #FFC5B3; color: #931F1F; }
+  .tinteractive { background: #C3EAE4; color: #134B4C; } .tmotion { background: #FFD7DC; color: #912046; }
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: 1fr; }
+    .panel { grid-template-columns: 1fr; position: static; }
+    .picker { grid-row: auto; } .presets, .warning { grid-column: auto; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Sfondo delle card</h1>
+    <p class="intro">Muovi i cursori o usa il quadrato colorato per scegliere liberamente. Le card qui sotto si aggiornano subito.
+       Quando trovi il colore giusto, scrivimi il codice (es. <b>#F9E4CB</b>) oppure premi "Copia" e incollalo nella chat.</p>
+
+    <div class="panel">
+      <div class="picker">
+        <input type="color" id="color" value="#F9E4CB" aria-label="Scegli il colore liberamente" />
+        <div>
+          <div class="hex" id="hex">#F9E4CB</div>
+          <button type="button" id="copy">Copia</button>
+        </div>
+      </div>
+      <label class="slider">Quanto arancio <input type="range" id="orange" min="0" max="100" value="60" /></label>
+      <label class="slider">Quanto scuro <input type="range" id="dark" min="0" max="20" value="4" /></label>
+      <div class="presets"><span>Pronte:</span></div>
+      <p class="warning" id="warning"></p>
+    </div>
+
+    <section>
+      <h2>Con il colore scelto</h2>
+      <div class="grid" data-cards></div>
+    </section>
+    <section>
+      <h2>Oggi · crema con bordo rosa (per confronto)</h2>
+      <div class="grid" data-cards="bordered"></div>
+    </section>
+  </div>
+
+  <script>
+    // Pictures come from the project, through the running preview (npm run dev).
+    const IMG = '/Portfolio/@fs/C:/Users/lucir/Desktop/Lavoro/NewPortfolio/src/assets/materials/';
+    const projects = [
+      { title: 'Le Auto della Dolce Vita', img: 'dolce_vita/cover.jpg', areas: ['3d'] },
+      { title: 'The DNA of Rome', img: 'roma_nel_mondo/cover.jpg', areas: ['visual', 'interactive'] },
+      { title: 'DNA of Italian Motorsport', img: 'dna/cover.jpg', areas: ['3d', 'motion'] },
+    ];
+    const label = { '3d': '3D', visual: 'Visual', interactive: 'Interactive', motion: 'Motion' };
+    document.querySelectorAll('[data-cards]').forEach((grid) => {
+      grid.innerHTML = projects.map((p) => `
+        <div class="card ${grid.dataset.cards}">
+          <div class="img" style="background-image:url('${IMG + p.img}')"></div>
+          <div class="cap"><span class="title">${p.title}</span>
+            <span class="tags">${p.areas.map((a) => `<span class="tag t${a}">${label[a]}</span>`).join('')}</span></div>
+        </div>`).join('');
+    });
+
+    // Colour maths: "orange" mixes the cream of the page (#FFFCEE) with your light orange (#FED9B7);
+    // "dark" then mixes in a little of your dark orange (#9B5313).
+    const hexToRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+    const rgbToHex = (c) => '#' + c.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('').toUpperCase();
+    const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
+    const CREAM = hexToRgb('#FFFCEE'), ORANGE = hexToRgb('#FED9B7'), DARK = hexToRgb('#9B5313');
+    const lum = (c) => { const [r, g, b] = c.map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+    const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+
+    const els = { color: document.getElementById('color'), hex: document.getElementById('hex'), orange: document.getElementById('orange'),
+                  dark: document.getElementById('dark'), warning: document.getElementById('warning') };
+
+    function apply(hex) {
+      hex = hex.toUpperCase();
+      document.documentElement.style.setProperty('--card', hex);
+      els.color.value = hex; els.hex.textContent = hex;
+      const c = hexToRgb(hex);
+      const notes = [];
+      if (contrast(c, CREAM) < 1.04) notes.push('La card si distingue poco dallo sfondo della pagina.');
+      if (contrast(c, ORANGE) < 1.06) notes.push("Attenzione: l'etichetta arancio \"3D\" si confonde con questo sfondo.");
+      els.warning.textContent = notes.join(' ');
+    }
+    function fromSliders() {
+      apply(rgbToHex(mix(mix(CREAM, ORANGE, els.orange.value / 100), DARK, els.dark.value / 100)));
+    }
+    els.orange.addEventListener('input', fromSliders);
+    els.dark.addEventListener('input', fromSliders);
+    els.color.addEventListener('input', () => apply(els.color.value));
+    document.getElementById('copy').addEventListener('click', async (e) => {
+      try { await navigator.clipboard.writeText(els.hex.textContent); e.target.textContent = 'Copiato!'; }
+      catch { e.target.textContent = 'Selezionalo a mano'; }
+      setTimeout(() => (e.target.textContent = 'Copia'), 1500);
+    });
+
+    // Ready-made shades, all leaning towards orange.
+    const presets = [[35, 2], [50, 3], [60, 4], [70, 3], [50, 8], [65, 10]];
+    const box = document.querySelector('.presets');
+    for (const [o, d] of presets) {
+      const hex = rgbToHex(mix(mix(CREAM, ORANGE, o / 100), DARK, d / 100));
+      const b = document.createElement('button');
+      b.type = 'button'; b.innerHTML = `<i style="background:${hex}"></i>${hex}`;
+      b.addEventListener('click', () => { els.orange.value = o; els.dark.value = d; fromSliders(); });
+      box.appendChild(b);
+    }
+    fromSliders();
+  </script>
+</body>
+</html>

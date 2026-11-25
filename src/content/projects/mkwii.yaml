@@ -1,0 +1,75 @@
+title: Mario Kart Wii Custom Tracks
+description: A series of custom playable tracks created for Mario Kart Wii, built for the game's still-active online creator community.
+ogImage: materials/mkwii/mkwii10.jpg
+order: 1
+listed: true
+featured: true
+areas:
+- 3d
+- interactive
+year: '2017–2022'
+tools:
+- Blender
+- SketchUp
+- Mario Kart Wii modding tools
+tags:
+- 3D Modeling
+- Environment Art
+- Level Design
+- Texture Editing
+cover:
+  src: mkwii/mkwii12.jpg
+  height: 40vw
+text: “Mario Kart Wii - Custom Tracks” are a series of playable levels created for the videogame Mario Kart Wii. I started creating these circuits when I discovered an online community of creators who, passionate about the video game, wanted to use their ideas to extend its playability. The strength of the community is demonstrated by the media popularity of the game long after its release. In 2021, more than 12 years after its publication, Mario Kart Wii still boasts dozens of creators and a pool of spectators that exceeds 1,000,000 on Youtube.
+responsibilities:
+- 3D Modeling
+- Environment Art
+- Level Design
+- Texture Editing
+card:
+  src: mkwii/mkwii12.jpg
+# The four tracks: each one is a chapter with its text and its own gallery (video first, then the pictures).
+chaptersTitle: Tracks
+chapters:
+- title: Castle in the Sky
+  thumb: mkwii/mkwii12.jpg
+  text: 'Castle in the Sky is a track set in the world of the homonymous Studio Ghibli movie. The track follows the events of the film, taking the player through its most iconic environments. The biggest challenge was working within the game''s strict hardware limitations, while attempting to create very large environments: Mario Kart Wii does not support levels exceeding 30,000 triangles and has significant restrictions on texture size and quantity. Nevertheless, the track successfully reached an audience of over 40,000 people on YouTube and was widely appreciated.'
+  media:
+  - youtube: 1scuIiy3ONM
+  - src: mkwii/mkwii12.jpg
+  - src: mkwii/mkwii13.jpg
+  - src: mkwii/mkwii14.jpg
+  - src: mkwii/mkwii15.jpg
+  - src: mkwii/mkwii16.jpg
+  - src: mkwii/mkwii17.jpg
+  - src: mkwii/mkwii18.jpg
+- title: Snowpoint Valley
+  text: Snowpoint Valley is a simple track set in a snowy environment, featuring a few surprising turns and slopes. The track is inspired by various Mario Kart levels, such as Sherbet Land and Mount Wario.
+  media:
+  - youtube: tNTk2qMx7uI
+  - src: mkwii/mkwii0.jpg
+  - src: mkwii/mkwii1.jpg
+  - src: mkwii/mkwii2.jpg
+- title: Dragon Burying Grounds
+  text: Dragon Burying Grounds is a track set in a volcanic landscape, designed to appeal to the more hardcore Mario Kart Wii fanbase. It features a series of challenging turns and, most importantly, well-placed shortcuts that are difficult to execute but highly rewarding.
+  media:
+  - youtube: Io5YeXcxKjM
+  - src: mkwii/mkwii3.jpg
+  - src: mkwii/mkwii4.jpg
+  - src: mkwii/mkwii5.jpg
+- title: Volcano Canyon
+  text: Volcano Canyon is a track set in an active volcanic region. The main goal of this track was to serve as a visual overhaul of an older track I created when I first started making Mario Kart Wii levels.
+  media:
+  - youtube: oIwxRWetAWg
+  - src: mkwii/mkwii6.jpg
+  - src: mkwii/mkwii7.jpg
+  - src: mkwii/mkwii8.jpg
+sections:
+  overview: |-
+    Mario Kart Wii Custom Tracks are a series of playable levels made for the online community of creators who, more than a decade after the game's release, keep extending Mario Kart Wii with new tracks. The community is still very active, with dozens of creators and an audience of over a million spectators on YouTube.
+  role: |-
+    For each track I followed the whole process, from the concept to 3D modeling, environment art, level design and texture editing, up to the setup of the playable track with the community's modding tools.
+
+    The main challenge is the game's hardware: levels cannot exceed 30,000 triangles and textures are limited in size and number, so every environment has to look rich with very few resources.
+  result: |-
+    The tracks range from a homage to Studio Ghibli to demanding courses for expert players. The most popular, Castle in the Sky, reached over 40,000 viewers on YouTube and was widely appreciated by the community.

@@ -1,0 +1,75 @@
+title: DNA of Italian Motorsport
+description: 'Federico Lucifora''s contribution to DNA of Italian Motorsport (ACI): 3D realization of the featured cars (Alfa Romeo P3, Ferrari 375 Plus, Lancia Stratos, Lancia Delta Integrale, Tatuus F4), optimized for photorealistic visualization and Reality Composer Pro, plus the CGI trailer scenes, camera direction and poster graphics.'
+ogImage: materials/dna/H-Card A.png
+order: 4
+listed: true
+featured: false
+areas:
+- 3d
+- visual
+- motion
+year: '2026'
+client: 'Automobile Club Italia (ACI)'
+tools:
+- Blender
+- Substance Painter
+- Reality Composer Pro
+tags:
+- 3D Modeling
+- Retopology
+- Texturing
+- Trailer Editing
+cover:
+  src: dna/H-Card A.png
+text: DNA of Italian Motorsport is an immersive experience created for ACI. My focus was the 3D realization of the featured cars — optimized for photorealistic visualization and full compatibility with Reality Composer Pro — along with the CGI scenes of the project's trailer.
+responsibilities:
+- 3D Modeling
+- Retopology
+- Texturing
+- Trailer Editing
+card:
+  src: dna/H-Card A.png
+link: https://youtu.be/u8uj_H55qlc
+blocks:
+- type: video
+  youtube: u8uj_H55qlc
+  width: 25%
+  height: 35vw
+- type: text
+  text:
+  - My work on DNA of Italian Motorsport centered on the 3D realization of the cars featured in the experience, with a strong focus on optimizing each model for photorealistic visualization and full compatibility with Reality Composer Pro.
+  - I was also responsible for the CGI scenes of the project's trailer, developing the camera direction so that each shot would adapt smoothly to the transitions between the different scenes.
+  width: 35%
+  height: 35vw
+  scroll: true
+- type: image
+  src: dna/Delta.jpg
+- type: image
+  src: dna/Ferrari.jpg
+- type: image
+  src: dna/P3.jpg
+- type: image
+  src: dna/Stratos.jpg
+- type: image
+  src: dna/Tatuus.jpg
+- type: image
+  src: dna/H-Card A.png
+- type: image
+  src: dna/H-Card B.png
+- type: image
+  src: dna/V-Card A.png
+- type: image
+  src: dna/V-Card B.png
+- type: image
+  src: dna/V-Card C.png
+- type: image
+  src: dna/V-Card D.png
+sections:
+  overview: |-
+    DNA of Italian Motorsport is an immersive experience created for Automobile Club d'Italia that tells the story of Italian motorsport through some of its most iconic cars, designed to be explored in mixed reality. The journey spans almost a century of racing: from the Alfa Romeo P3 of the 1930s and the Ferrari 375 Plus, through the rally legends Lancia Stratos HF and Lancia Delta HF Integrale Evoluzione 2, up to the Tatuus F4 single-seater of today.
+  role: |-
+    I took care of the 3D realization of the featured cars, optimizing every model for photorealistic visualization and full compatibility with Reality Composer Pro. The challenge was to keep the level of detail expected from historic racing cars while respecting the performance limits of a real-time experience.
+
+    I was also responsible for the CGI scenes of the project's trailer, directing the camera so that each shot flows smoothly into the transitions between scenes. Finally, together with the graphic designer of my company, I created the graphics of the project's posters, bringing the 3D cars into the visual identity of the experience.
+  result: |-
+    The project brought to life a collection of photorealistic car models that run smoothly in real time, together with a CGI trailer that introduces visitors to the experience and its atmosphere.

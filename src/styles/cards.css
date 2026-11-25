@@ -1,0 +1,167 @@
+/* Project cards, shared by the work page and the home page (components/WorkCard.astro).
+   Square cards: the picture fills them, title and area labels sit at the bottom over a black gradient. */
+
+.workGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vw;
+    padding: 0 1vw;
+    margin-bottom: 4vw;
+}
+
+.workCard {
+    /* Black gradient behind the card titles:
+       strength = how dark it is at the bottom (0 = invisible, 1 = solid black),
+       height = how much of the card it covers, from the bottom up. */
+    --gradient-strength: 0.65;
+    --gradient-height: 45%;
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    border-radius: 1vw;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.workCard[hidden] {
+    display: none;
+}
+
+.workCard:hover {
+    transform: translateY(-0.5vw) rotate(-0.5deg);
+}
+
+.workCard:focus-visible {
+    outline: 0.2vw solid #4e4e4e;
+    outline-offset: 0.3vw;
+}
+
+.workCardImage {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+/* The black gradient lies over the bottom of the picture (black approved by you on 2026-11-22). */
+.workCardImage::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--gradient-height);
+    background: linear-gradient(to top,
+        rgba(0, 0, 0, var(--gradient-strength)) 0%,
+        rgba(0, 0, 0, calc(var(--gradient-strength) * 0.6)) 45%,
+        rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+}
+
+.workCardCaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6vw;
+    padding: 1.2vw;
+}
+
+.workCardTitle {
+    font-weight: 500;
+    font-size: 1.5vw;
+    color: #FFFCEE;
+}
+
+.areaTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4vw;
+}
+
+.areaTag {
+    font-weight: 500;
+    font-size: 0.85vw;
+    padding: 0.3vw 0.8vw;
+    border-radius: 50vw;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .workCard {
+        transition: none;
+    }
+
+    .workCard:hover {
+        transform: none;
+    }
+}
+
+/* Phones ---------------------------------------------------------------------------------------------------------------------------*/
+
+@media only screen and (max-width: 600px) {
+
+    .workGrid {
+        grid-template-columns: 1fr;
+        gap: 3vw;
+        padding: 0 4vw;
+        margin-bottom: 8vw;
+    }
+
+    /* On phones the cards are rectangular (one per row), so more of them fit on the screen. */
+    .workCard {
+        aspect-ratio: 16 / 9;
+        border-radius: 3vw;
+    }
+
+    .workCard:hover {
+        transform: none;
+    }
+
+    .workCardCaption {
+        gap: 2vw;
+        padding: 3.5vw;
+    }
+
+    .workCardTitle {
+        font-size: 4.5vw;
+    }
+
+    .areaTags {
+        gap: 1.5vw;
+    }
+
+    .areaTag {
+        font-size: 3vw;
+        padding: 1vw 2.5vw;
+    }
+}
+
+/* Tablets --------------------------------------------------------------------------------------------------------------------------*/
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+
+    .workGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5vw;
+        padding: 0 1.5vw;
+    }
+
+    .workCard {
+        border-radius: 1.5vw;
+    }
+
+    .workCardCaption {
+        gap: 1vw;
+        padding: 2vw;
+    }
+
+    .workCardTitle {
+        font-size: 2.4vw;
+    }
+
+    .areaTag {
+        font-size: 1.6vw;
+        padding: 0.5vw 1.4vw;
+    }
+}

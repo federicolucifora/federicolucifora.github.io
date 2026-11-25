@@ -1,0 +1,76 @@
+---
+import { Font, getImage } from 'astro:assets';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { absoluteUrl, url } from '../lib';
+import { img } from '../images';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path of this page inside the site, e.g. "about.html" (empty for the home page). */
+  path?: string;
+  /** Image shown when the page is shared, inside src/assets/materials/, e.g. "me1.jpg". */
+  ogImage?: string;
+  bodyClass?: string;
+  /** Colour of the navbar line when scrolling. */
+  scrollColor?: string;
+  /** Google Search Console verification code (home page only). */
+  googleVerification?: string;
+  /** Structured data for search engines (JSON). */
+  jsonLd?: object;
+  /** true = ask search engines not to list this page (used by hidden projects). */
+  noindex?: boolean;
+  /** true = small footer with name and contact links at the bottom (About, Work, project pages). */
+  footer?: boolean;
+}
+
+const {
+  title,
+  description,
+  path = '',
+  ogImage = 'profilo.png',
+  bodyClass = 'pageStyle',
+  scrollColor = '#FFC5B3',
+  googleVerification,
+  jsonLd,
+  noindex = false,
+  footer = false,
+} = Astro.props;
+
+const canonical = absoluteUrl(path);
+// Social previews: a light 1200px JPEG made from the chosen picture.
+const ogPicture = await getImage({ src: await img(ogImage), width: 1200, format: 'jpg', quality: 80 });
+const ogImageUrl = new URL(ogPicture.src, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
+    <title>{title}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href={url('favicon/favicon-32.png')} />
+    <link rel="icon" type="image/png" sizes="16x16" href={url('favicon/favicon-16.png')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={url('favicon/favicon-180.png')} />
+    <Font cssVariable="--font-rubik" preload />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body class={bodyClass}>
+    <Navbar scrollColor={scrollColor} />
+    <slot />
+    {footer && <Footer />}
+  </body>
+</html>

@@ -1,0 +1,56 @@
+---
+import { getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import MarkedText from '../components/MarkedText.astro';
+import Timeline from '../components/Timeline.astro';
+import { img } from '../images';
+import '../styles/about.css';
+
+const about = (await getEntry('about', 'about'))!.data;
+const preview = import.meta.env.DEV;
+---
+
+<Layout
+  title="About | Federico Lucifora"
+  description="Learn more about Federico Lucifora, a 3D Artist & Visual Designer passionate about videogames, storytelling and wonder-filled experiences."
+  path="about.html"
+  ogImage="me1.jpg"
+  scrollColor="#FED9B7"
+  footer
+>
+  <PageIntro text="About Me" colorClass="color1_1" />
+
+  <div data-intro-content>
+    <!-- Photo and presentation side by side (one under the other on phones).
+         A card with the photo and some info (Based in, Languages, tools) was tried and rejected. -->
+    <div class="aboutIntro">
+      <div id="pImageDiv" class="normalImage">
+        <Image src={await img('me2.jpg')} alt="Federico Lucifora, 3D Artist & Visual Designer" widths={[320, 682]} sizes="(max-width: 600px) 60vw, (max-width: 992px) 29vw, 25vw" loading="eager" />
+      </div>
+
+      <div id="presentation" class="normalText">
+        <MarkedText text={about.intro} />
+        {
+          preview && about.introOriginal && (
+            <div class="originalText">
+              <strong>Original text</strong>
+              <p>{about.introOriginal}</p>
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    <!-- Section titles in the light shade of their colour family (the dark shade was tried and rejected). -->
+    <div id="experience" class="titleText color1_1">Experience</div>
+    <Timeline items={about.experience} palette={1} />
+
+    <div id="awards" class="titleText color2_1">Awards</div>
+    <Timeline items={about.awards} palette={2} />
+
+    <div id="education" class="titleText color3_1">Education</div>
+    <Timeline items={about.education} palette={3} />
+  </div>
+</Layout>

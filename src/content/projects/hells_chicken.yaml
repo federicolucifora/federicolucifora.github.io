@@ -1,0 +1,74 @@
+title: Hell's Chicken
+description: Hell's Chicken is a 2.5D Unity videogame developed at Politecnico di Milano, featuring 3D modeling, animation and level design.
+ogImage: materials/hells_chicken/copertina.jpg
+order: 5
+listed: true
+featured: false
+areas:
+- 3d
+- interactive
+year: '2020'
+tools:
+- Unity
+- Blender
+- Photoshop
+tags:
+- Game Design
+- Level Design
+- 3D Modeling
+- 3D Animation
+cover:
+  src: hells_chicken/copertina.jpg
+  position: top
+text: Hell’s Chicken is a 2.5D video game developed in Unity for Windows. It was designed and developed for the course of Videogame Design and Programming of Politecnico di Milano, and later published to itch.io as a downloadable demo. The game follows the adventures of Lucifer, who, now a chicken, has fallen to Hell and must escape it, avoiding the monsters who don't recognize him.
+responsibilities:
+- Game Design
+- Level Design
+- 3D Modeling
+- 3D Animation
+- Texturing
+card:
+  src: hells_chicken/copertina.jpg
+link: https://polimi-game-collective.itch.io/hells-chicken
+blocks:
+- type: video
+  youtube: tKO3s2d6ME8
+  width: 40%
+  height: 33vw
+- type: text
+  text: The goal was to create an easy-to-use game with an ironic character. In the making of Hell’s Chicken the main focus points were placed on the creation of captivating-looking environments that would allow gameplay with intuitive mechanics. The 3D environments and game characters were created, rigged and animated with Blender.
+- type: image
+  src: hells_chicken/screen1.jpg
+  width: 40%
+  height: 25vw
+- type: image
+  src: hells_chicken/screen2.jpg
+  width: 40%
+  height: 25vw
+- type: text
+  text: 'Here is the plot of the game: “There was once an angel, the brightest of his kind, whose name was Lucifer. Full of arrogance, he rebelled against God, but was thrown into Hell for having tried to defy the Creator. In his fall, he saw an unlucky chicken, which he knew would be his only chance to escape damnation unnoticed. He then grabbed onto it and dragged it to the depths of Hell, where he possessed its body and gave it his powers. Will Lucifer be able to make it back to Heaven and overthrow the Ruler?”'
+- type: image
+  src: hells_chicken/screen3.jpg
+  width: 40%
+  height: 32vw
+- type: image
+  src: hells_chicken/screen4.jpg
+  width: 25%
+  height: 25vw
+- type: image
+  src: hells_chicken/screen5.jpg
+  width: 25%
+  height: 25vw
+- type: image
+  src: hells_chicken/screen6.jpg
+  width: 25%
+  height: 25vw
+sections:
+  overview: |-
+    Hell's Chicken is a 2.5D video game developed in Unity for Windows. It was designed and developed for the course of Videogame Design and Programming of Politecnico di Milano.
+
+    The game follows the adventures of Lucifer: thrown into Hell for rebelling against God, during his fall he possesses the body of an unlucky chicken. Now a chicken, he must escape Hell, avoiding the monsters who don't recognize him, and try to make it back to Heaven.
+  role: |-
+    The goal was to create an easy-to-use game with an ironic character. In the making of Hell's Chicken, the main focus was placed on the creation of captivating-looking environments that would allow gameplay with intuitive mechanics. I created, rigged and animated the 3D environments and the game characters with Blender, and hand-painted the textures of the 3D models.
+  result: |-
+    Hell's Chicken was later published on itch.io as a downloadable demo.

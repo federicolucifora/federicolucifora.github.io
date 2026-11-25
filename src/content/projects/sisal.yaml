@@ -1,0 +1,50 @@
+title: Sisal Immersive Museum
+description: 3D asset creation for the Sisal Immersive Museum, an interactive space recreating the company's history and heritage.
+ogImage: materials/sisal/sisal5.jpg
+order: 7
+listed: true
+featured: false
+areas:
+- 3d
+year: '2024'
+client: 'Sisal'
+tools:
+- Blender
+- Substance Painter
+tags:
+- 3D Modeling
+- Texturing
+cover:
+  src: sisal/sisal1.jpg
+text: The Sisal Immersive Museum is an interactive space designed to showcase the story and heritage of Sisal. The experience allows users to explore how the company has evolved over time, recreating past environments and shops. I worked on the creation of various assets used in both the library environment and the betting shop, where people once placed their bets..
+responsibilities:
+- 3D Modeling
+- Texturing
+card:
+  src: sisal/sisal1.jpg
+blocks:
+- type: image
+  src: sisal/sisal4.jpg
+  width: 40%
+  height: 35vw
+- type: image
+  src: sisal/sisal5.jpg
+  width: 40%
+  height: 35vw
+- type: image
+  src: sisal/sisal2.jpg
+  width: 60%
+  height: 30vw
+- type: text
+  text: The betting shop was the most carefully designed environment. The goal was to make the user feel as if they were inside an old betting shop, complete with blackboards and tables displaying match results written by hand. The texturing process was fundamental in achieving this, aiming to convey a vintage feel without making it look artificially aged.
+- type: image
+  src: sisal/sisal3.jpeg
+  width: 40%
+  height: 45vw
+sections:
+  overview: |-
+    The Sisal Immersive Museum is an interactive space that tells the story and heritage of Sisal, letting visitors walk through recreated environments and shops from different moments of the company's history.
+  role: |-
+    I created and textured various 3D assets for two environments: the library and an old betting shop. The betting shop received the most care: the goal was to make visitors feel inside a real betting shop of the past, with blackboards and handwritten match results. Texturing was the key to conveying a vintage atmosphere without making everything look artificially aged.
+  result: |-
+    The museum runs in virtual reality on Meta Quest 3 headsets and can be explored by several visitors at the same time, so groups of people can step together into the places where Sisal's history was made.

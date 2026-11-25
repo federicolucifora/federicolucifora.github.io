@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proposte miniature galleria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Proposals for the strip of previews of the gallery, tested with Off The Grid (very light pictures on a cream page).
+     Only the orange family + cream + grey, solid colours. */
+  :root { --cream: #FFFCEE; --grey: #4e4e4e; --o1: #FED9B7; --o2: #FFA528; --o3: #9B5313; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--cream); color: var(--grey); font-family: 'Rubik', sans-serif; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 30px 80px; }
+  h1 { margin: 32px 0 6px; font-size: 28px; }
+  .intro { margin: 0 0 8px; max-width: 85ch; line-height: 1.5; }
+  .toggle { display: inline-flex; gap: 8px; align-items: center; margin: 6px 0 0; font-size: 14px; }
+  .toggle button { font: inherit; border: none; border-radius: 999px; padding: 6px 14px; cursor: pointer; background: var(--o1); color: var(--o3); }
+  .toggle button[aria-pressed="true"] { background: var(--o3); color: var(--cream); }
+  section { padding: 30px 0 36px; }
+  section + section { border-top: 2px dashed var(--o1); }
+  section h2 { margin: 0 0 4px; font-size: 22px; color: var(--o3); }
+  section .note { margin: 0 0 18px; max-width: 85ch; line-height: 1.5; font-size: 15px; }
+
+  .stage { display: flex; justify-content: center; margin-bottom: 14px; }
+  .stage img { display: block; max-width: 100%; height: 360px; width: auto; border-radius: 12px; }
+  body.mainBorder .stage img { box-shadow: 0 0 0 2px var(--o1); }
+  .thumbs { display: flex; justify-content: center; gap: 10px; padding: 6px; }
+  .thumb { position: relative; padding: 0; border: none; background: none; cursor: pointer; border-radius: 8px; }
+  .thumb img { display: block; height: 70px; width: auto; border-radius: 8px; }
+
+  /* Now: only the opacity changes */
+  .s0 .thumb { opacity: .55; } .s0 .thumb[aria-current="true"] { opacity: 1; }
+
+  /* 1 · Dark frame around the chosen one */
+  .s1 .thumb { opacity: .55; }
+  .s1 .thumb[aria-current="true"] { opacity: 1; box-shadow: 0 0 0 3px var(--cream), 0 0 0 5px var(--o3); }
+
+  /* 2 · Light edge on all, dark edge on the chosen one */
+  .s2 .thumb img { box-shadow: 0 0 0 2px var(--o1); }
+  .s2 .thumb { opacity: .7; }
+  .s2 .thumb[aria-current="true"] { opacity: 1; }
+  .s2 .thumb[aria-current="true"] img { box-shadow: 0 0 0 2px var(--o3); }
+
+  /* 3 · Tiles: every preview sits on a light orange tile, the chosen tile is dark orange */
+  .s3 .thumb { padding: 5px; background: var(--o1); border-radius: 12px; }
+  .s3 .thumb[aria-current="true"] { background: var(--o3); }
+
+  /* 4 · Light edge on all + a dark bar under the chosen one */
+  .s4 .thumbs { padding-bottom: 16px; }
+  .s4 .thumb img { box-shadow: 0 0 0 2px var(--o1); }
+  .s4 .thumb { opacity: .7; }
+  .s4 .thumb[aria-current="true"] { opacity: 1; }
+  .s4 .thumb[aria-current="true"]::after { content: ''; position: absolute; left: 25%; right: 25%; bottom: -12px; height: 4px; border-radius: 4px; background: var(--o3); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Miniature della galleria: proposte</h1>
+  <p class="intro">Provate con le immagini di Off The Grid, che sono molto chiare e si confondono con il crema della pagina.
+    In ogni proposta puoi cliccare le miniature.</p>
+  <div class="toggle">Bordino arancio chiaro anche attorno all'immagine grande:
+    <button data-main="off" aria-pressed="true">No</button><button data-main="on" aria-pressed="false">Sì</button>
+  </div>
+
+  <section class="s0"><h2>Com'è adesso</h2><p class="note">Cambia solo la trasparenza: con immagini chiare si capisce poco.</p><div class="demo"></div></section>
+  <section class="s1"><h2>1 · Cornice scura sulla scelta</h2><p class="note">Le altre restano trasparenti; quella scelta ha una sottile cornice arancio scuro, staccata di poco dall'immagine.</p><div class="demo"></div></section>
+  <section class="s2"><h2>2 · Bordino su tutte</h2><p class="note">Ogni miniatura ha un bordino arancio chiaro, così anche le immagini chiare hanno un contorno; quella scelta ha il bordino arancio scuro.</p><div class="demo"></div></section>
+  <section class="s3"><h2>3 · Tessere</h2><p class="note">Ogni miniatura sta su una piccola tessera arancio chiaro; la tessera di quella scelta diventa arancio scuro. Nessuna trasparenza.</p><div class="demo"></div></section>
+  <section class="s4"><h2>4 · Bordino + lineetta</h2><p class="note">Bordino arancio chiaro su tutte, e sotto quella scelta una lineetta arancio scuro (come le schede di un'app).</p><div class="demo"></div></section>
+</div>
+<script>
+  const IMG = '/Portfolio/@fs/C:/Users/lucir/Desktop/Lavoro/NewPortfolio/src/assets/materials/offthegrid/';
+  const pics = ['offthegrid1', 'offthegrid2', 'offthegrid3', 'offthegrid4', 'offthegrid6'];
+  for (const demo of document.querySelectorAll('.demo')) {
+    let sel = 0;
+    const render = () => {
+      demo.innerHTML = `<div class="stage"><img src="${IMG}${pics[sel]}.jpg" alt=""></div>
+        <div class="thumbs">${pics.map((p, i) => `<button class="thumb" aria-current="${i === sel}"><img src="${IMG}${p}.jpg" alt=""></button>`).join('')}</div>`;
+      demo.querySelectorAll('.thumb').forEach((t, i) => t.addEventListener('click', () => { sel = i; render(); }));
+    };
+    render();
+  }
+  for (const b of document.querySelectorAll('[data-main]')) {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('[data-main]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      document.body.classList.toggle('mainBorder', b.dataset.main === 'on');
+    });
+  }
+</script>
+</body>
+</html>

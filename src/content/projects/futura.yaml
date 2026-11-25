@@ -1,0 +1,97 @@
+title: Futura
+description: 3D asset creation and environment design for Futura, Plenitude's multi-platform metaverse built in Unity and Roblox Studio.
+ogImage: materials/futura/hub_2.jpg
+order: 3
+listed: true
+featured: false
+areas:
+- 3d
+- interactive
+- motion
+year: '2024–2026'
+client: 'Plenitude (Eni)'
+tools:
+- Blender
+- Substance Painter
+- Unity
+- Roblox Studio
+- Affinity
+tags:
+- 3D Modeling
+- Texturing
+- Environment Art
+- Unity
+cover:
+  src: futura/world_1.jpg
+text: Futura is the metaverse created by Plenitude. It is a multi-platform project where my role was to create and texture assets for the environment. I also worked on environment design for some levels in Unity and Roblox Studio. Additionally, a 3D representation of the Futura World was created, and I contributed by designing some of the continents along with their respective materials and textures.
+responsibilities:
+- 3D Modeling
+- Texturing
+- Environment Art
+- Unity
+card:
+  src: futura/world_1.jpg
+link: https://futura.eniplenitude.com/ita
+# The continents of Futura I worked on: each one is a chapter with its text and its own gallery.
+chaptersTitle: Continents
+chapters:
+- title: Futura World
+  text: |-
+    Futura World is the planet that holds all the continents of Futura. For its 3D representation I designed some of the continents, together with their materials and textures, so that each one has its own character while the planet still reads as a single world.
+
+    I also created the animations for the trailer that presents the planet, studying the camera movements and the timing of each shot to guide the viewer from one continent to the next.
+  media:
+  - youtube: 0h7Cp5qxflM
+  - src: futura/world_1.jpg
+  - src: futura/world_2.png
+  - src: futura/world_3.png
+- title: Futura HUB
+  text: |-
+    Futura HUB is the first continent of Futura, the place where the journey through the metaverse begins. I created and textured 3D assets for its environments, working on the environment design of its areas in Unity.
+  media:
+  - src: futura/hub_2.jpg
+  - src: futura/hub_3.jpg
+  - src: futura/hub_1.jpg
+  - src: futura/hub_4.png
+  - src: futura/hub_5.png
+  - src: futura/hub_6.png
+- title: Futura Ville
+  text: |-
+    Futura Ville is the continent of Futura built on Roblox. In Roblox Studio I worked on the environment design of its levels and created its 3D assets, keeping the look of Futura within the technical limits and the style of the platform.
+
+    The continent is also home to the Buddies, the characters that accompany players through Futura. I created the Buddies and all their animations: the spawn animation that plays when they appear, the idle animation while they wait, and the one for when they are collected.
+  media:
+  - src: futura/roblox_2.jpg
+  - src: futura/roblox_1.jpg
+  - src: futura/roblox_3.png
+  - src: futura/roblox_4.png
+  - src: futura/buddy1.png
+  - src: futura/buddy2.png
+  - src: futura/buddy3.png
+  - src: futura/buddy4.png
+  - src: futura/buddy5.png
+- title: Futura Blocks
+  text: |-
+    Futura Blocks is the newest continent of Futura, launched on Roblox in April 2026 during Milan Design Week. It is the continent of building: each player gets their own block, an island made of hexagonal tiles, and is challenged to grow it into a society based on virtuous energy models.
+
+    I created all the 3D elements of the continent. To build the islands, I developed a system inside Blender that generates them procedurally from hexagonal pieces, so that every island could be produced quickly while keeping a consistent look.
+
+    I also animated how each model appears on the island: every building and object has its own spawn animation, which plays every time a player places it, turning each construction into a small moment of reward. These animations were then used in the trailer that presented Futura Blocks at Milan Design Week.
+  media:
+  - youtube: n5q18UufxHI
+  - youtube: -gwvA4GuxCY
+  - src: futura/blocks_1.png
+  - src: futura/blocks_2.png
+  - src: futura/blocks_3.png
+  - src: futura/blocks_4.png
+  - src: futura/blocks_5.png
+  - src: futura/blocks_6.png
+sections:
+  overview: |-
+    Futura is the metaverse created by Plenitude (Eni) to make energy saving and sustainability engaging through play. Launched in 2024, it is made of five continents spread across popular platforms such as Spatial, Fortnite, Roblox and Rec Room.
+  role: |-
+    Throughout the project I created and textured 3D assets for its environments and worked on the environment design of several levels in Unity and Roblox Studio. I also contributed to the 3D representation of the Futura World, designing some of its continents together with their materials and textures, and took care of animation: the characters and buildings of the Roblox continents, and the camera work of the project's trailers.
+
+    The main challenge was keeping a recognizable visual identity across very different platforms, each with its own technical limits and style.
+  result: |-
+    Futura reached thousands of players across its platforms, thanks also to collaborations with influencers such as Roby, one of the most followed creators of the Italian Roblox community, and to its presence at events such as Lucca Comics & Games.

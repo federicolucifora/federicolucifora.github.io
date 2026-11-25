@@ -1,0 +1,30 @@
+---
+interface Props {
+  items: { date: string; title: string; subtitle: string }[];
+  /** Colour set number (1 = orange, 2 = red, 3 = green), see styles/common.css. */
+  palette: 1 | 2 | 3;
+}
+const { items, palette } = Astro.props;
+const preview = import.meta.env.DEV;
+
+// {{ ... }} = written by Claude: highlighted in the preview, normal text in the published site
+// (same marker as the other texts, see MarkedText.astro, which also holds the highlight style).
+const marked = (html: string) =>
+  html.replace(/\{\{([\s\S]*?)\}\}/g, (_, text) =>
+    preview ? `<mark class="writtenByClaude" title="Scritto da Claude: da controllare">${text.trim()}</mark>` : text.trim(),
+  );
+---
+
+{
+  items.map((item) => (
+    <div class="elementContainer">
+      <div class={`elementDate bcolor${palette}_1 color${palette}_3`}>{item.date}</div>
+      <div class="elementText">
+        {/* "Hook Srl", "Ultra Srl"...: the name and "Srl" always stay on the same line. */}
+        {item.title.replace(/ (Srl)\b/g, ' $1')}
+        <br />
+        <span class="elementSubtitle" set:html={marked(item.subtitle)} />
+      </div>
+    </div>
+  ))
+}

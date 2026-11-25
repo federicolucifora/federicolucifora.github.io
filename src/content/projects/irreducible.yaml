@@ -1,0 +1,59 @@
+title: Irreducible World
+description: A 3D motion graphics video transforming an AI-generated poster into an immersive three-dimensional world, created for Ultra Srl.
+ogImage: materials/irreducible/copertina.png
+order: 99
+listed: false
+featured: false
+areas:
+- 3d
+- motion
+tags:
+- 3D Modeling
+- 3D Motion Graphics
+- Storytelling
+cover:
+  src: irreducible/copertina.png
+  mobileHeight: 140vw
+text: '"Irreducible World" is a short 3D motion graphics video created for Ultra Srl, which requested the transformation of a poster created through artificial intelligence into a three-dimensional environment.'
+responsibilities:
+- 3D Modeling
+- 3D Motion Graphics
+- Storytelling
+card:
+  src: irreducible/copertina.png
+  position: 0 70%
+blocks:
+- type: video
+  youtube: BBM8ZQZ1q_M
+  width: 40vw
+  height: 35vw
+  mobileWidth: 40vw
+  mobileHeight: 52vw
+- type: text
+  text: 'To convey this environment, I chose to use the medium of video: I thought that the environment of the poster could truly be "irreducible." Consequently, I imagined a seemingly small world that, however, proves to be much larger once entered into the poster. The final phase of the video serves as a moment of wonder to surprise the viewer, who initially expected simply a scene set in a fantastical place, but is then provided with a new perspective.'
+- type: image
+  src: irreducible/irreducible1.png
+  width: 20%
+  height: 35vw
+  mobileHeight: 140vw
+- type: image
+  src: irreducible/irreducible4.png
+  width: 20%
+  height: 35vw
+  mobileHeight: 140vw
+- type: image
+  src: irreducible/irreducible3.png
+  width: 20vw
+  height: 35vw
+  mobileHeight: 140vw
+sections:
+  overview: |-
+    {{Irreducible World is a short 3D motion graphics video created for Ultra, which asked to turn a poster generated with artificial intelligence into a three-dimensional world.}}
+  role: |-
+    {{I chose video as the medium to express the idea that the world in the poster is truly “irreducible”: it looks small at first, but turns out to be much larger once the camera enters it. I built the 3D environment and directed the animation so that the final part works as a moment of wonder, offering the viewer a new perspective.}}
+  result: |-
+    {{A video that transforms a static image into an immersive journey, surprising viewers who expect a simple fantasy scene.}}
+  original: |-
+    "Irreducible World" is a short 3D motion graphics video created for Ultra Srl, which requested the transformation of a poster created through artificial intelligence into a three-dimensional environment.
+
+    To convey this environment, I chose to use the medium of video: I thought that the environment of the poster could truly be "irreducible." Consequently, I imagined a seemingly small world that, however, proves to be much larger once entered into the poster. The final phase of the video serves as a moment of wonder to surprise the viewer, who initially expected simply a scene set in a fantastical place, but is then provided with a new perspective.

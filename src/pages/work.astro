@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import WorkCard from '../components/WorkCard.astro';
+import PageIntro from '../components/PageIntro.astro';import { areas } from '../areas';
+import '../styles/work.css';
+
+const projects = (await getCollection('projects'))
+  .filter((project) => project.data.listed)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout
+  title="Work | Federico Lucifora"
+  description="Browse Federico Lucifora's work: 3D art, visual design, motion graphics and interactive projects."
+  path="work.html"
+  scrollColor="#FFC5B3"
+  footer
+>
+  <PageIntro text="Work" colorClass="color2_1" />
+
+  <div data-intro-content>
+  <div class="filters" role="group" aria-label="Filter the projects by area">
+    <button type="button" class="filterButton filterAll" data-filter="all" aria-pressed="true">All</button>
+    {
+      areas.map((area) => (
+        <button
+          type="button"
+          class={`filterButton family${area.family}`}
+          data-filter={area.id}
+          aria-pressed="false"
+        >
+          {area.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="workGrid">
+    {projects.map((project) => <WorkCard project={project} />)}
+  </div>
+  <p class="noResults" hidden>No projects in these areas yet.</p>
+  </div>
+</Layout>
+
+<script>
+  // Filters: you can switch on several areas; a project is shown if it belongs to at least one of them.
+  // With no area switched on (or "All"), every project is shown.
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('.filterButton'));
+  const allButton = buttons.find((button) => button.dataset.filter === 'all')!;
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.workCard'));
+  const noResults = document.querySelector<HTMLElement>('.noResults')!;
+  const active = new Set<string>();
+
+  function update() {
+    allButton.setAttribute('aria-pressed', String(active.size === 0));
+    for (const button of buttons) {
+      if (button !== allButton) button.setAttribute('aria-pressed', String(active.has(button.dataset.filter!)));
+    }
+    let visible = 0;
+    for (const card of cards) {
+      const show = active.size === 0 || card.dataset.areas!.split(' ').some((area) => active.has(area));
+      card.hidden = !show;
+      if (show) visible++;
+    }
+    noResults.hidden = visible > 0;
+  }
+
+  for (const button of buttons) {
+    button.addEventListener('click', () => {
+      const area = button.dataset.filter!;
+      if (area === 'all') active.clear();
+      else if (active.has(area)) active.delete(area);
+      else active.add(area);
+      update();
+    });
+  }
+</script>

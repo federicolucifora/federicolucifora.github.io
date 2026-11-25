@@ -1,0 +1,55 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { absoluteUrl, url } from '../lib';
+import { img } from '../images';
+import '../styles/index.css';
+
+const home = (await getEntry('home', 'home'))!.data;
+const featured = (await getCollection('projects'))
+  .filter((project) => project.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout
+  title="Federico Lucifora | 3D Artist & Visual Designer"
+  description="Portfolio of Federico Lucifora, 3D Artist & Visual Designer: 3D art, visual design and motion graphics for games, brands and digital experiences."
+  path=""
+  scrollColor="#FED9B7"
+  footer
+  googleVerification="ABpgr9vWfmQ7hm4EkEf5tSqMYTIj_WLr4ge5hNCzgr8"
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Federico Lucifora Portfolio',
+    alternateName: 'Federico Lucifora',
+    url: absoluteUrl(''),
+  }}
+>
+  <div id="pageTitle" class="color1_1">Portfolio</div>
+
+  <div id="presentation" class="normalText">{home.presentation}</div>
+
+  <div id="skills" class="normalText" set:html={home.skillsIntro} />
+  <div id="modeling" class="bcolor3_1 color3_3 skillsText" set:html={home.skills.modeling} />
+  <div id="levelDesign" class="color1_3 skillsText" set:html={home.skills.levelDesign} />
+  <div id="development" class="bcolor2_1 color2_3 skillsText" set:html={home.skills.development} />
+
+  <a href={url('work.html')} id="seeAll">see all work &gt;&gt;</a>
+  <div id="workContainer" class="workGrid">
+    {featured.map((project) => <WorkCard project={project} />)}
+  </div>
+
+  <!-- Without scripts the picture is shown where the CSS puts it. -->
+  <noscript><style>#pImageDiv { visibility: visible !important; }</style></noscript>
+  <div id="pImageDiv" class="normalImage">
+    <Image id="me1" src={await img('me1.jpg')} alt="Federico Lucifora, 3D Artist & Visual Designer" widths={[320, 640]} sizes="(max-width: 992px) 26vw, 25vw" loading="eager" />
+    <Image id="me2" src={await img('me2.jpg')} alt="" class="imageTransparent" widths={[320, 682]} sizes="(max-width: 992px) 26vw, 25vw" loading="eager" />
+  </div>
+</Layout>
+
+<script>
+  import '../scripts/home.js';
+</script>

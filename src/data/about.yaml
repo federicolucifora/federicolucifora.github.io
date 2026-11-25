@@ -1,0 +1,41 @@
+# Presentation. Paragraphs are separated by an empty line; {{ }} = written by Claude, to be checked (see the project files).
+intro: |-
+  I am a 3D Artist and Visual Designer who, as a child, fell madly in love with the videogames of the Pokémon and Mario franchises. That sense of wonder never left me, and today I bring it into everything I make, from 3D art to visual design, motion graphics and interactive experiences.
+
+  Whatever the medium, my goal stays the same: to tell a story through my work and let people feel a child-like sense of wonder.
+# Info kept as a note (NOT shown on the site: the info card was tried and rejected).
+facts:
+- label: Based in
+  value: Milan, Italy
+- label: Languages
+  value: Italian (native), English (C1)
+- label: Main tools
+  value: Blender, Substance Painter, Affinity, Reality Composer Pro, Adobe Creative Suite
+experience:
+- date: 2024–2026
+  title: 3D Artist at Ultra Srl
+  subtitle: 3D art and visual design for immersive and real-time applications (Apple Vision Pro, Roblox, Unity), for clients such as Automobile Club d'Italia, Plenitude and MAXXI.
+- date: 2023–2024
+  title: Visual Designer at Hook Srl
+  subtitle: 3D and 2D motion graphics, videos and visual assets for brands such as Luxottica, BPER, Poste Italiane and Angelini Pharma.
+- date: '2022'
+  title: Assistant Project Manager at MoltiMedia Srl
+  subtitle: Stage on a digital heritage project for virtual reality.
+- date: '2021'
+  title: Teaching assistant at Politecnico di Milano
+  subtitle: Assistant for the course of History of design and architecture.
+awards:
+- date: '2023'
+  title: European Design Awards - Silver Prize
+  # The link opens the project page of the portfolio (address relative to the About page).
+  subtitle: Silver award for the case-study and website "<a href="work/offthegrid.html">Off The Grid</a>"
+- date: '2022'
+  title: Awwwards Honorable Mention
+  subtitle: Honorable mention for the case-study and website "<a href="work/offthegrid.html">Off The Grid</a>"
+education:
+- date: '2022'
+  title: Communication Design Master's Degree
+  subtitle: Master's Degree at Politecnico di Milano
+- date: '2020'
+  title: Communication Design Degree
+  subtitle: Undergraduate Degree at Politecnico di Milano

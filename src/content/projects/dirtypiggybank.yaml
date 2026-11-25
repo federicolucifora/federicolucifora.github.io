@@ -1,0 +1,53 @@
+title: Dirty Piggy Bank
+description: Dirty Piggy Bank is a 3D motion graphics short criticizing Netflix's Squid Game, created with Blender, Premiere Pro and After Effects.
+ogImage: materials/dirtypiggybank/copertina.png
+order: 8
+listed: false
+featured: false
+areas:
+- 3d
+- motion
+tags:
+- 3D Modeling
+- 3D Motion Graphics
+- Storytelling
+cover:
+  src: dirtypiggybank/copertina.png
+text: Dirty Piggy Bank was a short motion graphics video that has the goal to criticize the main message of the Netflix's show "Squid Game". The 3D assets were created and animated with Blender, while Premiere Pro and After Effects were used for compositing and audio mixing.
+responsibilities:
+- 3D Modeling
+- 3D Motion Graphics
+- Storytelling
+card:
+  src: dirtypiggybank/copertina.png
+link: https://youtu.be/q-RLOhm9bmw
+blocks:
+- type: video
+  youtube: q-RLOhm9bmw
+  width: 35%
+  height: 35vw
+- type: text
+  text: Squid Game is a series produced by Netflix which has made a fortune for the streaming platform. The production was very well received by the audience as it showed a series of death games that created a lot of suspense. Moreover, it was very clear that the show also proposed a strong metaphor, depicting what people are capable of for money. However, isn’t it ironic how a series that shows money in such a negative light is also the one that made Netflix the most revenue it had ever earned?
+- type: image
+  src: dirtypiggybank/dirty1.png
+  width: 80%
+  height: 45vw
+- type: text
+  text: It is for such a reason that “Dirty Piggy Bank” will try to bring this irony to the spectator’s eyes. Scenes from the show will be juxtaposed to 3d motion graphics so as to create a clear link to the money as depicted in Squid Game and the money earned by Netflix with the show. The final result is supposed to create a sense of filth by wealth and let the viewer think about whether it is right that a work is the creator of what it criticizes.
+- type: image
+  src: dirtypiggybank/dirty2.png
+  width: 30%
+  height: 35vw
+sections:
+  overview: |-
+    {{Dirty Piggy Bank is a short 3D motion graphics video that reflects on the irony behind Netflix's “Squid Game”: a series that portrays money in such a negative light, yet became one of the most profitable shows in the platform's history.}}
+  role: |-
+    {{I conceived and produced the video, juxtaposing scenes from the show with 3D motion graphics to link the money depicted in Squid Game with the money Netflix earned from it. The 3D assets were modeled and animated in Blender, while compositing and audio mixing were done in Premiere Pro and After Effects.}}
+  result: |-
+    {{A short video that evokes a sense of “filth by wealth” and invites viewers to question whether a work can rightly profit from what it criticizes.}}
+  original: |-
+    Dirty Piggy Bank was a short motion graphics video that has the goal to criticize the main message of the Netflix's show "Squid Game". The 3D assets were created and animated with Blender, while Premiere Pro and After Effects were used for compositing and audio mixing.
+
+    Squid Game is a series produced by Netflix which has made a fortune for the streaming platform. The production was very well received by the audience as it showed a series of death games that created a lot of suspense. Moreover, it was very clear that the show also proposed a strong metaphor, depicting what people are capable of for money. However, isn’t it ironic how a series that shows money in such a negative light is also the one that made Netflix the most revenue it had ever earned?
+
+    It is for such a reason that “Dirty Piggy Bank” will try to bring this irony to the spectator’s eyes. Scenes from the show will be juxtaposed to 3d motion graphics so as to create a clear link to the money as depicted in Squid Game and the money earned by Netflix with the show. The final result is supposed to create a sense of filth by wealth and let the viewer think about whether it is right that a work is the creator of what it criticizes.

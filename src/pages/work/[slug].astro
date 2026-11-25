@@ -1,0 +1,317 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Gallery from '../../components/Gallery.astro';
+import ProjectSections from '../../components/ProjectSections.astro';
+import MarkedText from '../../components/MarkedText.astro';
+import { img, type GalleryItem } from '../../images';
+import { url } from '../../lib';
+import goto from '../../assets/materials/goto.svg';
+import '../../styles/projects.css';
+import '../../styles/cards.css';
+
+// One page is built for every file in src/content/projects/.
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { title, description, ogImage, link, text, sections, year, client, tools, blocks, listed, chapters, chaptersTitle } = project.data;
+// (The "cover" of the .yaml file is not shown on the project page any more: decided on 2026-11-22.)
+
+// ---- Project card (top right): only the lines that are filled in --------------------------------------------------
+const facts = [
+  year && { label: 'Year', value: year },
+  client && { label: 'Client', value: client },
+  tools?.length && { label: 'Tools', value: tools.join(', ') },
+].filter(Boolean) as { label: string; value: string }[];
+
+// ---- Page content: texts, then the gallery with pictures and videos in the order of the .yaml file -----------------
+const texts: string[] = [];
+const media: GalleryItem[] = [];
+let pictureCount = 0;
+let videoCount = 0;
+for (const block of blocks) {
+  // When the project has "sections", the old text blocks are already included there and are not shown again.
+  if (block.type === 'text') {
+    if (!sections) texts.push(...(Array.isArray(block.text) ? block.text : [block.text]));
+  }
+  else if (block.type === 'video') media.push({ kind: 'video', youtube: block.youtube, title: `${title}, video ${++videoCount}` });
+  else media.push({ kind: 'image', picture: await img(block.src), alt: `${title}, image ${++pictureCount}` });
+}
+
+// ---- Chapters (big projects only): index of small pictures, then one title + text + gallery for each chapter ----
+const chapterList = await Promise.all(
+  (chapters ?? []).map(async (chapter, index) => {
+    let pictures = 0;
+    let videos = 0;
+    const items: GalleryItem[] = await Promise.all(
+      chapter.media.map(async (item): Promise<GalleryItem> =>
+        'youtube' in item
+          ? { kind: 'video', youtube: item.youtube, title: `${chapter.title}, video ${++videos}` }
+          : { kind: 'image', picture: await img(item.src), alt: `${chapter.title}, image ${++pictures}` },
+      ),
+    );
+    const firstPicture = chapter.media.find((item) => 'src' in item) as { src: string } | undefined;
+    const thumbPath = chapter.thumb ?? firstPicture?.src;
+    return {
+      id: `chapter-${index + 1}`,
+      title: chapter.title,
+      text: chapter.text ?? '',
+      items,
+      thumb: thumbPath ? await img(thumbPath) : undefined,
+    };
+  }),
+);
+
+// ---- Previous / next project (only among the projects shown in the work page) ----------------------------------
+const visible = (await getCollection('projects'))
+  .filter((p) => p.data.listed)
+  .sort((a, b) => a.data.order - b.data.order);
+const position = visible.findIndex((p) => p.id === project.id);
+const previous = listed && visible.length > 1 ? visible[(position - 1 + visible.length) % visible.length] : undefined;
+const next = listed && visible.length > 1 ? visible[(position + 1) % visible.length] : undefined;
+// Buttons at the bottom: a small picture of the project, the direction and its name.
+const navButtons = await Promise.all(
+  [
+    previous && { project: previous, label: 'Previous', side: 'previous' },
+    next && { project: next, label: 'Next', side: 'next' },
+  ]
+    .filter(Boolean)
+    .map(async (item) => {
+      const { project: other, label, side } = item as { project: typeof project; label: string; side: string };
+      return { href: url(`work/${other.id}.html`), title: other.data.title, label, side, thumb: await img(other.data.card.src) };
+    }),
+);
+---
+
+<Layout
+  title={`${title} | Federico Lucifora`}
+  description={description}
+  path={`work/${project.id}.html`}
+  ogImage={ogImage}
+  bodyClass="pageStyle"
+  noindex={!listed}
+  scrollColor="#FFC5B3"
+  footer
+>
+  <div class="projectContainer">
+    <div class="headerContainer">
+      <div class="titleContainer">
+        {
+          link ? (
+            <a href={link} target="_blank" rel="noopener" class="projectTitle">
+              {title}
+              <img src={goto.src} alt="" />
+            </a>
+          ) : (
+            <h1 class="projectTitle">{title}</h1>
+          )
+        }
+        {sections ? <ProjectSections sections={sections} /> : <p class="projectText">{text}</p>}
+      </div>
+      {
+        facts.length > 0 && (
+          <dl class="projectFacts">
+            {facts.map((fact) => (
+              <div class="projectFact">
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="storyContainer">
+    {
+      texts.length > 0 && (
+        <div class="storyText">
+          {texts.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      )
+    }
+
+    {media.length > 0 && <Gallery items={media} />}
+
+    {chapterList.length > 0 && (
+      <svg class="chapterOutline" aria-hidden="true"><path /></svg>
+    )}
+
+    {
+      chapterList.length > 0 && (
+        <nav class="chapterIndex" aria-label={chaptersTitle ?? 'Chapters'}>
+          <h2 class="chapterIndexTitle">{chaptersTitle ?? 'Chapters'}</h2>
+          {/* Same cards as the work page; clicking one shows only that chapter (script at the bottom). */}
+          <ul class="chapterIndexList">
+            {chapterList.map((chapter, index) => (
+              <li>
+                <a
+                  href={`#${chapter.id}`}
+                  class="workCard chapterIndexCard"
+                  aria-label={chapter.title}
+                  data-chapter={chapter.id}
+                  aria-current={index === 0 ? 'true' : 'false'}
+                >
+                  <div class="workCardImage">
+                    {chapter.thumb && (
+                      <Image
+                        src={chapter.thumb}
+                        alt=""
+                        class="fillImage"
+                        width={Math.min(720, chapter.thumb.width)}
+                        widths={[360, 720]}
+                        sizes="(max-width: 600px) 46vw, 23vw"
+                        quality={88}
+                      />
+                    )}
+                  </div>
+                  <div class="workCardCaption">
+                    <span class="workCardTitle">{chapter.title}</span>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+
+    {
+      chapterList.map((chapter, index) => (
+        <section class="chapter" id={chapter.id} aria-labelledby={`${chapter.id}-title`} hidden={index !== 0}>
+          <h2 class="chapterTitle" id={`${chapter.id}-title`}>{chapter.title}</h2>
+          {chapter.text.trim() && (
+            <div class="storyText">
+              <MarkedText text={chapter.text} />
+            </div>
+          )}
+          {chapter.items.length > 0 && <Gallery items={chapter.items} />}
+        </section>
+      ))
+    }
+  </div>
+
+  <nav class="projectNav" aria-label="Other projects">
+    {
+      navButtons.map((button) => (
+        <a
+          href={button.href}
+          class={`projectNavButton ${button.side}`}
+          aria-label={`${button.side === 'previous' ? 'Previous' : 'Next'} project: ${button.title}`}
+        >
+          <Image src={button.thumb} alt="" class="projectNavThumb" width={160} widths={[80, 160]} sizes="5vw" />
+          {/* On phones the words are replaced by the same chevron used by the gallery arrows. */}
+          <svg class="projectNavChevron" viewBox="0 0 24 24" aria-hidden="true">
+            <path d={button.side === 'previous' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'} />
+          </svg>
+          <span class="projectNavText">
+            <span class="projectNavLabel">{button.label}</span>
+            <span class="projectNavTitle">{button.title}</span>
+          </span>
+        </a>
+      ))
+    }
+    <a href={url('work.html')} class="allWork">All work</a>
+  </nav>
+</Layout>
+
+<script>
+  // Chapters: only one is visible at a time, the one chosen in the index (the first one when the page opens).
+  const cards = Array.from(document.querySelectorAll<HTMLAnchorElement>('.chapterIndexCard'));
+  const chapters = Array.from(document.querySelectorAll<HTMLElement>('.chapter'));
+
+  function openChapter(id: string) {
+    if (!chapters.some((chapter) => chapter.id === id)) return;
+    for (const chapter of chapters) {
+      const visible = chapter.id === id;
+      // A video in a chapter that is being hidden is stopped.
+      if (!visible && !chapter.hidden) chapter.querySelectorAll('iframe').forEach((frame) => (frame.src = frame.src));
+      chapter.hidden = !visible;
+    }
+    cards.forEach((card) => card.setAttribute('aria-current', String(card.dataset.chapter === id)));
+    drawOutline();
+  }
+
+  // The line of the folder: one shape around the chosen card (the tab) and the chapter below (the panel).
+  // All the curves have the same radius, "card corners + space": also the two where the tab widens into the panel,
+  // which in this way run parallel to the corners of the cards next to the chosen one.
+  const outline = document.querySelector<SVGSVGElement>('.chapterOutline');
+  const container = outline?.parentElement;
+
+  function drawOutline() {
+    if (!outline || !container) return;
+    const path = outline.querySelector('path')!;
+    const card = cards.find((c) => c.getAttribute('aria-current') === 'true');
+    const chapter = chapters.find((c) => !c.hidden);
+    if (!card || !chapter) return path.setAttribute('d', '');
+
+    const style = getComputedStyle(container);
+    const toPx = (value: string) => {
+      const probe = document.createElement('div');
+      probe.style.width = value;
+      container.appendChild(probe);
+      const px = probe.getBoundingClientRect().width;
+      probe.remove();
+      return px;
+    };
+    const pad = toPx(style.getPropertyValue('--tab-pad'));
+    const big = toPx(style.getPropertyValue('--card-radius')) + pad;
+    const small = big;
+    const half = toPx(style.getPropertyValue('--line-width')) / 2; // the line is drawn inside the shapes
+
+    const box = container.getBoundingClientRect();
+    // Measured on the card's place in the list, not on the card itself: when it is clicked the card is still
+    // lifted and tilted by the mouse-over movement, and the line would follow that tilted position.
+    const slot = (element: HTMLElement) => element.parentElement!.getBoundingClientRect();
+    const c = slot(card);
+    const p = chapter.getBoundingClientRect();
+    const x1 = c.left - box.left - pad + half;
+    const x2 = c.right - box.left + pad - half;
+    const y1 = c.top - box.top - pad + half;
+    const px1 = p.left - box.left + half;
+    const px2 = p.right - box.left - half;
+    const py1 = p.top - box.top + half;
+    const py2 = p.bottom - box.top - half;
+    const arc = (r: number, x: number, y: number, outward = true) => ` A ${r} ${r} 0 0 ${outward ? 1 : 0} ${x} ${y}`;
+    const rect = (l: number, t: number, r: number, b: number, rad: number) =>
+      `M ${l} ${t + rad}${arc(rad, l + rad, t)} L ${r - rad} ${t}${arc(rad, r, t + rad)} L ${r} ${b - rad}` +
+      `${arc(rad, r - rad, b)} L ${l + rad} ${b}${arc(rad, l, b - rad)} Z`;
+
+    // The tab reaches the panel only when the card is in the last row (on phones the cards are on two rows).
+    const lastRow = cards.every((other) => slot(other).top <= c.top + 1);
+    if (!lastRow) {
+      path.setAttribute('d', rect(x1, y1, x2, c.bottom - box.top + pad - half, big) + ' ' + rect(px1, py1, px2, py2, big));
+      return;
+    }
+
+    const atLeft = Math.abs(x1 - px1) < 1;
+    const atRight = Math.abs(x2 - px2) < 1;
+    let d = `M ${x1} ${y1 + big}${arc(big, x1 + big, y1)} L ${x2 - big} ${y1}${arc(big, x2, y1 + big)}`;
+    d += atRight
+      ? ` L ${px2} ${py2 - big}`
+      : ` L ${x2} ${py1 - small}${arc(small, x2 + small, py1, false)} L ${px2 - big} ${py1}${arc(big, px2, py1 + big)} L ${px2} ${py2 - big}`;
+    d += `${arc(big, px2 - big, py2)} L ${px1 + big} ${py2}${arc(big, px1, py2 - big)}`;
+    d += atLeft
+      ? ' Z'
+      : ` L ${px1} ${py1 + big}${arc(big, px1 + big, py1)} L ${x1 - small} ${py1}${arc(small, x1, py1 - small, false)} Z`;
+    path.setAttribute('d', d);
+  }
+
+  if (container) new ResizeObserver(drawOutline).observe(container);
+
+  for (const card of cards) {
+    card.addEventListener('click', (event) => {
+      event.preventDefault(); // the page does not jump: the chapter simply changes below the index
+      openChapter(card.dataset.chapter!);
+      history.replaceState(null, '', `#${card.dataset.chapter}`);
+    });
+  }
+
+  // A link to a precise chapter (e.g. mkwii.html#chapter-3) opens that chapter.
+  if (location.hash) openChapter(location.hash.slice(1));
+</script>

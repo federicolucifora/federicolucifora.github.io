@@ -1,0 +1,72 @@
+---
+// Text of a project in three parts: Overview, My role, Result.
+// The texts can contain the markers {{ ... }} and [[ ... ]] (see MarkedText.astro and content.config.ts).
+import MarkedText from './MarkedText.astro';
+
+interface Props {
+  sections: { overview?: string; role?: string; result?: string; original?: string };
+}
+const { sections } = Astro.props;
+const preview = import.meta.env.DEV;
+
+// A part is shown only if it has some text (in the published site the [[ ]] parts do not count: they are hidden).
+const hasText = (text = '') => (preview ? text : text.replace(/\[\[[\s\S]*?\]\]/g, '')).trim().length > 0;
+
+const parts = [
+  { title: 'Overview', text: sections.overview },
+  { title: 'My role', text: sections.role },
+  { title: 'Result', text: sections.result },
+  // Your original text, to compare it with the new one: only in the preview, never in the published site.
+  ...(preview ? [{ title: 'Original text', text: sections.original, original: true }] : []),
+].filter((part) => hasText(part.text));
+---
+
+<div class="projectSections">
+  {
+    parts.map((part) => (
+      <section class:list={['projectSection', { originalText: 'original' in part }]}>
+        <h2 class="projectSectionTitle">{part.title}</h2>
+        <MarkedText text={part.text} class="projectText" />
+      </section>
+    ))
+  }
+</div>
+
+{
+  preview && (
+    <div class="textLegend" aria-hidden="true">
+      <span><mark class="writtenByClaude">Rosa</mark> scritto da Claude</span>
+      <span><mark class="toComplete">Verde</mark> da completare</span>
+      <small>Solo nell'anteprima</small>
+    </div>
+  )
+}
+
+<style>
+  /* Original text (preview only): separated by a dashed line and slightly faded. */
+  .originalText {
+    padding-top: 1.2vw;
+    border-top: 1.5px dashed #9B5313;
+    opacity: 0.75;
+  }
+
+  .textLegend {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 14px;
+    background: #FFFCEE;
+    color: #4e4e4e;
+    border: 1.5px solid #4e4e4e;
+    border-radius: 12px;
+    font-size: 12px;
+  }
+
+  .textLegend small {
+    opacity: 0.7;
+  }
+</style>

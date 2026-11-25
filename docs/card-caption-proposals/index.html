@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Didascalie senza ombra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Proposals for the work cards without a shadow. Page background = the site's cream. */
+  :root {
+    --cream: #FFFCEE; --grey: #4e4e4e;
+    --o1: #FED9B7; --o3: #9B5313; --r1: #FFC5B3; --r3: #931F1F;
+    --t1: #C3EAE4; --t3: #134B4C; --p1: #FFD7DC; --p3: #912046;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--cream); color: var(--grey); font-family: 'Rubik', sans-serif; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px 60px; }
+  h1 { margin: 32px 0 6px; font-size: 28px; }
+  .intro { margin: 0 0 8px; max-width: 75ch; line-height: 1.5; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; font-size: 13px; }
+  .legend span { padding: 3px 10px; border-radius: 999px; }
+  .ok { background: var(--t1); color: var(--t3); }
+  .new { background: var(--p1); color: var(--p3); }
+  section { padding: 30px 0 34px; border-top: 1px solid var(--o1); }
+  section h2 { margin: 0 0 4px; font-size: 21px; }
+  section .note { margin: 0 0 6px; max-width: 80ch; line-height: 1.5; font-size: 15px; }
+  section .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; font-size: 12px; }
+  section .badges span { padding: 3px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; }
+  section .badges i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,.15); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+  /* Shared card parts */
+  .card { display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: transform .2s; }
+  .card:hover { transform: translateY(-5px) rotate(-.5deg); }
+  .img { position: relative; aspect-ratio: 4 / 3; background-size: cover; background-position: center; }
+  .cap { display: flex; flex-direction: column; gap: 8px; }
+  .title { font-weight: 500; font-size: 19px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag { font-weight: 500; font-size: 11.5px; padding: 4px 10px; border-radius: 999px; }
+  .t3d { background: var(--o1); color: var(--o3); } .tvisual { background: var(--r1); color: var(--r3); }
+  .tinteractive { background: var(--t1); color: var(--t3); } .tmotion { background: var(--p1); color: var(--p3); }
+
+  /* 1 · No box: rounded picture, caption straight on the page */
+  .v1 .img { border-radius: 14px; }
+  .v1 .cap { padding: 12px 4px 0; }
+
+  /* 2 · Caption on the picture, over a gradient of the text grey */
+  .v2 .card { border-radius: 14px; overflow: hidden; position: relative; }
+  .v2 .img { aspect-ratio: 4 / 3.4; }
+  .v2 .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 16px 16px;
+             background: linear-gradient(to top, rgba(78,78,78,.92) 0%, rgba(78,78,78,.55) 55%, rgba(78,78,78,0) 100%); }
+  .v2 .title { color: var(--cream); }
+
+  /* 3 · Caption band in the light colour of the project's first area */
+  .v3 .card { border-radius: 14px; overflow: hidden; }
+  .v3 .cap { padding: 13px 16px 16px; background: var(--band); }
+  .v3 .title { color: var(--band-ink); }
+  .v3 .tag { background: var(--cream); }
+
+  /* 4 · Hairline: a 1px line of the text grey, very transparent */
+  .v4 .card { border-radius: 14px; overflow: hidden; border: 1px solid rgba(78,78,78,.22); background: var(--cream); }
+  .v4 .cap { padding: 13px 16px 16px; }
+
+  /* 5 · NEW neutral "sand" background (not orange) */
+  .v5 .card { border-radius: 14px; overflow: hidden; background: #EFEBE3; }
+  .v5 .cap { padding: 13px 16px 16px; }
+
+  /* 6 · Sticker: a cream label that overlaps the bottom of the picture */
+  .v6 .img { border-radius: 14px; }
+  .v6 .cap { align-self: flex-start; max-width: 88%; margin: -34px 0 0 12px; position: relative;
+             padding: 11px 14px 12px; background: var(--cream); border-radius: 12px; }
+
+  /* 7 · Dark: card in the text grey, cream title */
+  .v7 .card { border-radius: 14px; overflow: hidden; background: var(--grey); }
+  .v7 .cap { padding: 13px 16px 16px; }
+  .v7 .title { color: var(--cream); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Card senza ombra: 7 prove</h1>
+  <p class="intro">Tutte le prove usano le stesse tre card, sul crema della pagina. Passa il mouse sopra: si alzano come
+     nel sito. Sotto il nome di ogni prova trovi i colori usati.</p>
+  <div class="legend"><span class="ok">solo colori tuoi</span><span class="new">colore nuovo</span></div>
+  <div data-proposals></div>
+</div>
+
+<script>
+  // Pictures come from the project, through the running preview (npm run dev).
+  const IMG = '/Portfolio/@fs/C:/Users/lucir/Desktop/Lavoro/NewPortfolio/src/assets/materials/';
+  const projects = [
+    { title: 'Le Auto della Dolce Vita', img: 'dolce_vita/cover.jpg', areas: ['3d'] },
+    { title: 'Off The Grid', img: 'offthegrid/copertina.jpg', areas: ['visual', 'interactive'] },
+    { title: 'DNA of Italian Motorsport', img: 'dna/cover.jpg', areas: ['3d', 'motion'] },
+  ];
+  const label = { '3d': '3D', visual: 'Visual', interactive: 'Interactive', motion: 'Motion' };
+  const band = { '3d': ['#FED9B7', '#9B5313'], visual: ['#FFC5B3', '#931F1F'], interactive: ['#C3EAE4', '#134B4C'], motion: ['#FFD7DC', '#912046'] };
+
+  const proposals = [
+    { n: 1, name: 'Senza scatola', note: "Nessun riquadro: l'immagine ha gli angoli arrotondati e titolo ed etichette stanno sotto, direttamente sulla pagina. È la più pulita e \"da rivista\"; le card non hanno un contorno, le separa lo spazio.",
+      colors: [['ok', null, 'nessun colore aggiunto']] },
+    { n: 2, name: "Didascalia sull'immagine", note: "Titolo ed etichette stanno sopra la parte bassa dell'immagine, su una sfumatura del tuo grigio che va da trasparente a scuro. Ricorda le card di una volta, ma più morbida. L'immagine occupa tutta la card.",
+      colors: [['ok', '#4e4e4e', 'grigio testi, sfumato'], ['ok', '#FFFCEE', 'crema per il titolo']] },
+    { n: 3, name: "Fascia del colore dell'area", note: "La parte sotto l'immagine prende il colore chiaro della prima area del progetto, e il titolo il suo tono scuro. Le etichette diventano crema. Il colore stesso dice che tipo di progetto è.",
+      colors: [['ok', '#FED9B7', '3D'], ['ok', '#FFC5B3', 'Visual'], ['ok', '#C3EAE4', 'Interactive'], ['ok', '#FFD7DC', 'Motion']] },
+    { n: 4, name: 'Linea sottile', note: "Un contorno di un solo pixel, nel tuo grigio molto trasparente. Molto più discreto del bordo rosa provato prima: disegna la card senza colorarla.",
+      colors: [['ok', '#4e4e4e', 'grigio testi al 22%']] },
+    { n: 5, name: 'Sabbia neutra', note: "Sfondo pieno, come ti piaceva, ma in un beige-grigio neutro invece che arancio: si distingue dal crema senza aggiungere un altro arancio.",
+      colors: [['new', '#EFEBE3', 'nuovo: sabbia neutra']] },
+    { n: 6, name: 'Etichetta adesiva', note: "La didascalia è un'etichetta crema che \"si appoggia\" sul bordo basso dell'immagine, come un adesivo. Più giocosa, in linea con il tono del sito.",
+      colors: [['ok', '#FFFCEE', 'crema']] },
+    { n: 7, name: 'Grigio scuro', note: "Card nel grigio dei tuoi testi, con titolo crema: stacca moltissimo e fa risaltare le etichette colorate, ma rende la pagina più pesante.",
+      colors: [['ok', '#4e4e4e', 'grigio testi'], ['ok', '#FFFCEE', 'crema per il titolo']] },
+  ];
+
+  const box = document.querySelector('[data-proposals]');
+  for (const p of proposals) {
+    const cards = projects.map((pr) => {
+      const [b, ink] = band[pr.areas[0]];
+      return `<a class="card" href="#" style="--band:${b};--band-ink:${ink}" onclick="return false">
+        <div class="img" style="background-image:url('${IMG + pr.img}')"></div>
+        <div class="cap"><span class="title">${pr.title}</span>
+          <span class="tags">${pr.areas.map((a) => `<span class="tag t${a}">${label[a]}</span>`).join('')}</span></div>
+      </a>`;
+    }).join('');
+    const badges = p.colors.map(([kind, hex, text]) =>
+      `<span class="${kind}">${hex ? `<i style="background:${hex}"></i>${hex} · ` : ''}${text}</span>`).join('');
+    box.insertAdjacentHTML('beforeend', `<section class="v${p.n}">
+      <h2>${p.n} · ${p.name}</h2><p class="note">${p.note}</p><div class="badges">${badges}</div>
+      <div class="grid">${cards}</div></section>`);
+  }
+</script>
+</body>
+</html>

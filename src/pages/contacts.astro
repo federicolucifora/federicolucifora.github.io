@@ -1,0 +1,46 @@
+---
+import { getEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import MarkedText from '../components/MarkedText.astro';
+import { img } from '../images';
+import { Image } from 'astro:assets';
+import '../styles/contacts.css';
+
+const site = (await getEntry('site', 'site'))!.data;
+const mailIcon = await img('mail.png');
+const linkedinIcon = await img('linkedin.png');
+// What is shown under "LinkedIn": the last part of the address (e.g. "federico-lucifora").
+const linkedinName = site.linkedin.replace(/\/+$/, '').split('/').pop();
+---
+
+<Layout
+  title="Contacts | Federico Lucifora"
+  description="Get in touch with Federico Lucifora for 3D art, visual design and motion graphics projects."
+  path="contacts.html"
+  scrollColor="#C3EAE4"
+>
+  <PageIntro text="Contacts" colorClass="color3_1" />
+
+  <div data-intro-content>
+    <!-- Invitation on the left, buttons on the right (one under the other on phones). -->
+    <div class="contactsPage">
+      {site.contactsIntro && <MarkedText text={site.contactsIntro} class="contactsIntro" />}
+
+      <div class="contactsButtons">
+        <!-- Email: the whole button opens the mail program. -->
+        <a href={`mailto:${site.email}`} class="contactsButton bcolor2_1 color2_3">
+          <Image src={mailIcon} alt="" width={96} height={96} class="contactsIcon" />
+          <span class="contactsName">Email</span>
+          <span class="contactsValue">{site.email}</span>
+        </a>
+
+        <a href={site.linkedin} class="contactsButton bcolor3_1 color3_3" target="_blank" rel="noopener">
+          <Image src={linkedinIcon} alt="" width={96} height={96} class="contactsIcon" />
+          <span class="contactsName">LinkedIn</span>
+          <span class="contactsValue">{linkedinName}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
