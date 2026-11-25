@@ -246,8 +246,11 @@ dal 17 dicembre 2025 al 6 aprile 2026. Nella sezione "Il DNA di Roma" un modello
 
 - [ ] Tu crei su GitHub il repository **federicolucifora.github.io** (ti guido passo passo).
 - [x] Pubblicazione del nuovo sito su https://federicolucifora.github.io/ (2026-11-26; deploy.yml usa Node 24,
-      con la versione di default la build falliva). Reindirizzamenti pronti in Lavoro\Portfolio e
-      Lavoro\Portfolio-Copy (= repo Visual-Designer), da caricare con GitHub Desktop.
+      con la versione di default la build falliva).
+- [x] Reindirizzamenti online (2026-11-26): /Portfolio/… e /visual-designer/… (Lavoro\Portfolio e
+      Lavoro\Portfolio-Copy = repo Visual-Designer) → pagine equivalenti del nuovo sito; grrr/haring → work.html;
+      ogni altro vecchio indirizzo → home (404.html). Vecchi file rimossi (recuperabili dalla cronologia).
+      Il nuovo sito non ha ancora una sua pagina 404 personalizzata.
 - [ ] (2026-11-25) Anche il sito **visual-designer** diventa un insieme di reindirizzamenti verso il nuovo sito
       (decisione cambiata dall'utente). Git non è installato sul PC: serve installarlo (Git for Windows).
 - [ ] Il repository **Portfolio** diventa un insieme di reindirizzamenti: ogni vecchio indirizzo
