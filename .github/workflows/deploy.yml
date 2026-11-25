@@ -20,7 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # Astro 7 needs Node 22.23.4 or newer (see "engines" in package.json): use a recent version.
       - uses: withastro/action@v3
+        with:
+          node-version: 24
 
   deploy:
     needs: build
